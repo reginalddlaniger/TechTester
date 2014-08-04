@@ -13,7 +13,7 @@ public class Player {
 	float hpPercent;
 	String name;
 	String elementStatus;  //elementStatus can be "blue", "green", or "red".  
-	String status;	//status can be "attacking", "normal", "taunting", healed, "damaged".
+	String status;	//status can be "attackingW", "attackingF", attackingE", "normal", "taunting", healed, "damagedN", "damagedF", "damagedW", "damagedE".
 	int  multiplier1, multiplier2;
 	float multiplier, multiplier0;
 	Vector2 tauntLoc;
@@ -83,10 +83,11 @@ public class Player {
 		if (getStatus() == "taunting"){
 			
 		}
-		
+		/*
 		if (getStatus() == "attacking" && attackTimer.getTimeLeft() == 0){
 			setStatus("normal");
 		}
+		*/
 		
 		/*
 		if (getStatus() != "attacking" && oldHP == newHP){

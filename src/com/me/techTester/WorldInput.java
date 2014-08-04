@@ -72,8 +72,7 @@ public class WorldInput {
 	void update(String gameState){
 		
 		//playerInputArea.draw();
-		playerInputArea.act();
-		
+		playerInputArea.act();		
 		
 		
 		if (p1Button.isPressed()){

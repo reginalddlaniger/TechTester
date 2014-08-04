@@ -119,7 +119,7 @@ public class PlayerHandler {
 								player1.calculateDamage(6);
 								p2TimeHandler.resetTimer();
 								break;
-						}//end of player1 reactions
+						}//end of player1 reactions						
 	
 			}//end of player2 input
 		

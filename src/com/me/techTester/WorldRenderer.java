@@ -780,8 +780,7 @@ public class WorldRenderer {
 			
 			if (getPauseStatus() == true){
 				inputs.p1Button.setPosition(w, 0);
-				inputs.p2Button.setPosition(w,h/2);
-				
+				inputs.p2Button.setPosition(w,h/2);				
 			}
 			
 			
@@ -1373,7 +1372,7 @@ public class WorldRenderer {
 				//p1TauntClock.timer(1);
 				batch2.draw(p2Taunt[0], playerHandler.player2.tauntX - p2Taunt[0].getRegionWidth(), playerHandler.player2.p2TauntY, w/4, w/4);  //draw taunt on p2 side
 				if (p1AnimeClock.getTimePassed() < 3){
-					batch2.draw(p1Boxer.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, h * 5/16, w/8, w/8); //draw p1 doing regular motions
+					batch2.draw(p1NeutralNormal.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, h * 5/16, w/8, w/8); //draw p1 doing regular motions
 				}
 				else {
 					p1AnimeClock.setCurrentMomentInTime(p1AnimeClock.stateTime);	
@@ -1390,7 +1389,7 @@ public class WorldRenderer {
 				batch2.draw(p1Taunt[0], playerHandler.player1.tauntX - p1Taunt[0].getRegionWidth(), playerHandler.player1.p1TauntY, w/4, w/4);
 				
 				if (p2AnimeClock.getTimePassed() < 3){
-					batch2.draw(p2Boxer.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, h * 5/8, w/8, w/8); 
+					batch2.draw(p2NeutralNormal.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, h * 5/8, w/8, w/8); 
 				}
 				else {
 					p2AnimeClock.setCurrentMomentInTime(p2AnimeClock.stateTime);	
@@ -1421,6 +1420,46 @@ public class WorldRenderer {
 					resetP1y();
 				}
 			}
+			
+			if (playerHandler.player1.getStatus() == "damaged" && playerHandler.player1.getElementStatus() == "blue"){
+				//batch2.draw(p1Boxer.getKeyFrame(5), w/2 - w/16, h * 1/4, w/8, w/8);
+				if ( p1y > h * 1/16){
+					p1y -= 2;
+					if (p1AnimeClock.getTimePassed() < 3){						
+						batch2.draw(p1waterHit.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, p1y, w/8, w/8);  //p1 pushed back limit should be h * 4/16?
+						
+					}
+					else {
+						p1AnimeClock.setCurrentMomentInTime(p1AnimeClock.stateTime);	
+						//p1AnimeClock.setTimePassed(p1AnimeClock.momentInTime);
+					}
+				}
+				else{
+					playerHandler.player1.setStatus("normal");
+					resetP1y();
+				}
+			}
+			
+			if (playerHandler.player1.getStatus() == "damaged" && playerHandler.player1.getElementStatus() == "green"){
+				//batch2.draw(p1Boxer.getKeyFrame(5), w/2 - w/16, h * 1/4, w/8, w/8);
+				if ( p1y > h * 1/16){
+					p1y -= 2;
+					if (p1AnimeClock.getTimePassed() < 3){						
+						batch2.draw(p1earthHit.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, p1y, w/8, w/8);  //p1 pushed back limit should be h * 4/16?
+						
+					}
+					else {
+						p1AnimeClock.setCurrentMomentInTime(p1AnimeClock.stateTime);	
+						//p1AnimeClock.setTimePassed(p1AnimeClock.momentInTime);
+					}
+				}
+				else{
+					playerHandler.player1.setStatus("normal");
+					resetP1y();
+				}
+			}
+			
+			
 			
 			
 			if (playerHandler.player1.getStatus() == "damaged"){

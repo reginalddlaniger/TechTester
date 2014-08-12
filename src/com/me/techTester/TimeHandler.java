@@ -314,7 +314,7 @@ public class TimeHandler {
 	
 	int getBarStatus(){
 		if (getTimePassedPercent() > 0  && getTimePassedPercent() < 7){
-			return 8;		
+			return 7;		
 		}
 		else if(getTimePassedPercent() > 7 && getTimePassedPercent() <= 100/7){
 			return 0;
@@ -334,7 +334,7 @@ public class TimeHandler {
 		else if(getTimePassedPercent() > (100/7) * 5 && getTimePassedPercent() <= ((100/7) * 6)){
 			return 5;
 		}
-		else if(getTimePassedPercent() > (100/7) * 6 ){
+		else if(getTimePassedPercent() > (100/7) * 6 && getTimePassedPercent() <= 100f){
 			return 6;
 		}
 		else{

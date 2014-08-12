@@ -23,7 +23,7 @@ public class WorldRenderer {
 	float h;
 	
 	TimeHandler p1AnimeClock, p2AnimeClock, p1TauntClock, p2TauntClock;
-	boolean pauseStatus;
+	boolean pauseStatus, p1HenshinStatus, p2HenshinStatus; // if HENSHIN status is default to off.  when turned true, it's immediately turned off and HENSHIN begins.
 	
 	private OrthographicCamera camera;
 
@@ -39,21 +39,22 @@ public class WorldRenderer {
 	Texture background;
 	TextureRegion[] p1Background, p2Background;
 	float p1FrameStart, p1AnimeFrameTime;
-	float p1x, p1y, p2x, p2y;
+	float p1x, p1y, p2x, p2y, AMS, HMS; //AMS == Attack Movement Speed,  HMS = Hit Movement Speed  These are the rates that the slimes move when they act
 	
 	Texture darkenedScreen;
 	Texture timerNumberPic;
 	TextureRegion[] timerNumbers;
 	Texture winner;
-	TextureRegion TRWinner;
+	TextureRegion[] TRWinner;
 	
 	
 	Texture playbackTextures;
 	TextureRegion[] playBackButtons;
 	TextureRegion pauseButton;
-	Texture playButton;
-	Texture restartButton;
-	Texture blankButton;
+	TextureRegion playButton;
+	TextureRegion restartButton;
+	TextureRegion blankButton;
+	TextureRegion cancelButton;
 	
 	Texture fullSlimeSpriteSheet;
 	TextureRegion[] allSlimeSprites;
@@ -154,7 +155,7 @@ public class WorldRenderer {
 	Color red;
 	static Texture timerGameIcons;
 	TextureRegion[] rpsIcons;
-	Texture CSX;
+	Texture CSX;//Circle Square X
 	Texture damageWords;
 	TextureRegion[] p1DmgWords;
 	TextureRegion[] p2DmgWords;
@@ -210,8 +211,11 @@ public class WorldRenderer {
 		
 		p1y = h * 5/16;
 		p2y = h * 5/8;
+		AMS = h/128;
+		HMS = h/256;
 		
-
+		p1HenshinStatus = false;
+		p2HenshinStatus = false;
 		
 		
 		setPauseStatus(false);
@@ -240,8 +244,7 @@ public class WorldRenderer {
 		enemyTime = new ShapeRenderer();
 		texture = new Texture(Gdx.files.internal("cursor.png"));
 
-		winner = new Texture(Gdx.files.internal("tempWinner.png"));
-		TRWinner = new TextureRegion(winner);
+
 		
 
 		player1HPBar = new ShapeRenderer();
@@ -430,7 +433,7 @@ public class WorldRenderer {
 			timerNumbers[i] = temp1[i][j];
 		}
 		
-		playbackTextures = new Texture(Gdx.files.internal("playbackButtons.png"));
+		playbackTextures = new Texture(Gdx.files.internal("playbackButtons2.png"));
 		playBackButtons = new TextureRegion[5];
 		temp1 = TextureRegion.split(playbackTextures, 16, 16);
 		for (int i = 0; i < 5; i++){
@@ -438,7 +441,12 @@ public class WorldRenderer {
 			playBackButtons[i] = temp1[i][j];
 		}
 		
-		pauseButton = playBackButtons[3];
+		pauseButton = playBackButtons[0];
+		
+		playButton = playBackButtons[1];
+		restartButton = playBackButtons[2];
+		blankButton = playBackButtons[3];
+		cancelButton = playBackButtons[4];
 		
 		
 		//////////////////////////////////////////////////////////////////////////////////////gathering the slime sprites
@@ -455,6 +463,13 @@ public class WorldRenderer {
 						k++;
 						//System.out.println(k);
 			}
+		}
+		
+		winner = new Texture(Gdx.files.internal("winner2.png"));
+		TRWinner = new TextureRegion[2];
+		temp1 = TextureRegion.split(winner,64,32);
+		for (int i = 0; i < 2; i++){
+			TRWinner[i] = temp1[i][0]; 
 		}
 		
 		allSlimes = new Animation(0.6f,allSlimeSprites);
@@ -667,7 +682,7 @@ public class WorldRenderer {
 		
 
 		///////////////////////////////////////////////////////////////HENSHIN
-		p1fireTransform = new Animation(0.6f, TRp1fireTransform);
+		p1fireTransform = new Animation(0.2f, TRp1fireTransform);
 		
 		p2waterTransform = new Animation(0.6f, TRp2waterTransform);
 		p1waterTransform = new Animation(0.6f, TRp1waterTransform);
@@ -758,7 +773,7 @@ public class WorldRenderer {
 			*/
 			backgroundRect.begin(ShapeType.Filled);
 			backgroundRect.rect(0,0,w,h);
-			backgroundRect.setColor(Color.valueOf("DBBDAB"));
+			backgroundRect.setColor(Color.valueOf("AFAFAF"));
 			backgroundRect.end();
 			p1AnimeClock.update(gameState, stateTime);
 			p2AnimeClock.update(gameState, stateTime);
@@ -945,7 +960,7 @@ public class WorldRenderer {
 			sr2.end();
 			*/
 			
-			
+			/*/////////////////////////////////////////////////////////////////////////HP Lines
 			HPlines.begin(ShapeType.Filled);  //lines to show parts of the HP bars
 			for (int i = 1; i < 11; i++){
 				HPlines.rect(w * 1/10 * i ,h/2 - h/32,1, h/16 );
@@ -955,6 +970,7 @@ public class WorldRenderer {
 			HPlines.rect(w * 16/playerHandler.player1.getMaxHP(), h/2,2, h/16 );
 			HPlines.setColor(Color.BLACK);
 			HPlines.end();
+			*/
 			
 			
 			//p1 HP border and meter
@@ -1172,23 +1188,46 @@ public class WorldRenderer {
 			
 			
 			
-			//player character placement on screen
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////player character placement on screen
 			
-				//normal character placement
-			p1AnimeClock.debug();  //for pause testing
-			
-			if (playerHandler.player1.getStatus() == "normal"){
-				if (p1AnimeClock.getTimePassed() < 3){
-					batch2.draw(p1NeutralNormal.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, h * 5/16, w/8, w/8);
+			//normal character placement
+		//p1AnimeClock.debug();  //for pause testing			
+		
+		//p2AnimeClock.debug();  //for pause testing
+			if (playerHandler.player2.getStatus() == "normal" && playerHandler.player2.getElementStatus() == "red"){
+				if (p2AnimeClock.getTimePassed() < 3){
+					batch2.draw(p2fireNormal.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, h * 5/8, w/8, w/8);
 				}
 				else {
-					p1AnimeClock.setFrozenMomentInTime();	
+					p2AnimeClock.setFrozenMomentInTime();	//if the clock goes past 3 in the above if statement, make the current time the new starting point ( I think)
 					//p1AnimeClock.setTimePassed(p1AnimeClock.momentInTime);
 				}
 			}
 			
-			p2AnimeClock.debug();  //for pause testing
-			if (playerHandler.player2.getStatus() == "normal"){
+			//p2AnimeClock.debug();  //for pause testing
+			else if (playerHandler.player2.getStatus() == "normal" && playerHandler.player2.getElementStatus() == "blue"){
+				if (p2AnimeClock.getTimePassed() < 3){
+					batch2.draw(p2waterNormal.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, h * 5/8, w/8, w/8);
+				}
+				else {
+					p2AnimeClock.setFrozenMomentInTime();	//if the clock goes past 3 in the above if statement, make the current time the new starting point ( I think)
+					//p1AnimeClock.setTimePassed(p1AnimeClock.momentInTime);
+				}
+			}
+			
+			//p2AnimeClock.debug();  //for pause testing
+			else if (playerHandler.player2.getStatus() == "normal" && playerHandler.player2.getElementStatus() == "green"){
+				if (p2AnimeClock.getTimePassed() < 3){
+					batch2.draw(p2earthNormal.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, h * 5/8, w/8, w/8);
+				}
+				else {
+					p2AnimeClock.setFrozenMomentInTime();	//if the clock goes past 3 in the above if statement, make the current time the new starting point ( I think)
+					//p1AnimeClock.setTimePassed(p1AnimeClock.momentInTime);
+				}
+			}
+			
+			//p2AnimeClock.debug();  //for pause testing
+			else if (playerHandler.player2.getStatus() == "normal"){
 				if (p2AnimeClock.getTimePassed() < 3){
 					batch2.draw(p2NeutralNormal.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, h * 5/8, w/8, w/8);
 				}
@@ -1198,77 +1237,51 @@ public class WorldRenderer {
 				}
 			}
 			
+			////////////////////////////////////////////////////////////////player 1 normals 
+				//normal character placement
+			p1AnimeClock.debug();  //for pause testing
 			
-			//normal character placement
-		//p1AnimeClock.debug();  //for pause testing
-		
-		if (playerHandler.player1.getStatus() == "normal" && playerHandler.player1.getElementStatus() == "red"){
-			if (p1AnimeClock.getTimePassed() < 3){
-				batch2.draw(p1fireNormal.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, h * 5/16, w/8, w/8);
-			}
-			else {
-				p1AnimeClock.setFrozenMomentInTime();	
-				//p1AnimeClock.setTimePassed(p1AnimeClock.momentInTime);
-			}
-		}
-		
-		//p2AnimeClock.debug();  //for pause testing
-		if (playerHandler.player2.getStatus() == "normal" && playerHandler.player2.getElementStatus() == "red"){
-			if (p2AnimeClock.getTimePassed() < 3){
-				batch2.draw(p2fireNormal.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, h * 5/8, w/8, w/8);
-			}
-			else {
-				p2AnimeClock.setFrozenMomentInTime();	//if the clock goes past 3 in the above if statement, make the current time the new starting point ( I think)
-				//p1AnimeClock.setTimePassed(p1AnimeClock.momentInTime);
-			}
-		}
-		
-		if (playerHandler.player1.getStatus() == "normal" && playerHandler.player1.getElementStatus() == "blue"){
-			if (p1AnimeClock.getTimePassed() < 3){
-				batch2.draw(p1waterNormal.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, h * 5/16, w/8, w/8);
-			}
-			else {
-				p1AnimeClock.setFrozenMomentInTime();	
-				//p1AnimeClock.setTimePassed(p1AnimeClock.momentInTime);
-			}
-		}
-		
-		//p2AnimeClock.debug();  //for pause testing
-		if (playerHandler.player2.getStatus() == "normal" && playerHandler.player2.getElementStatus() == "blue"){
-			if (p2AnimeClock.getTimePassed() < 3){
-				batch2.draw(p2waterNormal.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, h * 5/8, w/8, w/8);
-			}
-			else {
-				p2AnimeClock.setFrozenMomentInTime();	//if the clock goes past 3 in the above if statement, make the current time the new starting point ( I think)
-				//p1AnimeClock.setTimePassed(p1AnimeClock.momentInTime);
-			}
-		}
-		
-		if (playerHandler.player1.getStatus() == "normal" && playerHandler.player1.getElementStatus() == "green"){
-			if (p1AnimeClock.getTimePassed() < 3){
-				batch2.draw(p1earthNormal.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, h * 5/16, w/8, w/8);
-			}
-			else {
-				p1AnimeClock.setFrozenMomentInTime();	
-				//p1AnimeClock.setTimePassed(p1AnimeClock.momentInTime);
-			}
-		}
-		
-		//p2AnimeClock.debug();  //for pause testing
-		if (playerHandler.player2.getStatus() == "normal" && playerHandler.player2.getElementStatus() == "green"){
-			if (p2AnimeClock.getTimePassed() < 3){
-				batch2.draw(p2earthNormal.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, h * 5/8, w/8, w/8);
-			}
-			else {
-				p2AnimeClock.setFrozenMomentInTime();	//if the clock goes past 3 in the above if statement, make the current time the new starting point ( I think)
-				//p1AnimeClock.setTimePassed(p1AnimeClock.momentInTime);
-			}
-		}
-		
-		
+	
 			
+			if (playerHandler.player1.getStatus() == "normal" && playerHandler.player1.getElementStatus() == "red"){
+				if (p1AnimeClock.getTimePassed() < 3){
+					batch2.draw(p1fireNormal.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, h * 5/16, w/8, w/8);
+				}
+				else {
+					p1AnimeClock.setFrozenMomentInTime();	
+					//p1AnimeClock.setTimePassed(p1AnimeClock.momentInTime);
+				}
+			}
 			
+			else if (playerHandler.player1.getStatus() == "normal" && playerHandler.player1.getElementStatus() == "blue"){
+				if (p1AnimeClock.getTimePassed() < 3){
+					batch2.draw(p1waterNormal.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, h * 5/16, w/8, w/8);
+				}
+				else {
+					p1AnimeClock.setFrozenMomentInTime();	
+					//p1AnimeClock.setTimePassed(p1AnimeClock.momentInTime);
+				}
+			}
 			
+			else if (playerHandler.player1.getStatus() == "normal" && playerHandler.player1.getElementStatus() == "green"){
+				if (p1AnimeClock.getTimePassed() < 3){
+					batch2.draw(p1earthNormal.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, h * 5/16, w/8, w/8);
+				}
+				else {
+					p1AnimeClock.setFrozenMomentInTime();	
+					//p1AnimeClock.setTimePassed(p1AnimeClock.momentInTime);
+				}
+			}
+			
+			else if (playerHandler.player1.getStatus() == "normal"){
+				if (p1AnimeClock.getTimePassed() < 3){
+					batch2.draw(p1NeutralNormal.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, h * 5/16, w/8, w/8);
+				}
+				else {
+					p1AnimeClock.setFrozenMomentInTime();	
+					//p1AnimeClock.setTimePassed(p1AnimeClock.momentInTime);
+				}
+			}
 			
 			
 			
@@ -1280,21 +1293,23 @@ public class WorldRenderer {
 			
 					if (playerHandler.player1.getElementStatus() == "red"){
 						if (playerHandler.player1.getStatus() == "attacking"){
-							if (p1y < h * 6/16){
-								batch2.draw(p1fireAttack.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, p1y, w/8, w/8);
-								p1y += 3;
-							}
-							else{
-								playerHandler.player1.setStatus("normal");
-								resetP1y();
-							}
+							batch2.draw(p1fireTransform.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, p1y, w/8, w/8);
+								if (p1y < h *6/16){
+									
+									batch2.draw(p1fireAttack.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, p1y, w/8, w/8);
+									p1y += AMS;
+								}
+								else{
+									playerHandler.player1.setStatus("normal");
+									resetP1y();
+								}							
 						}					
 					}
 					else if (playerHandler.player1.getElementStatus() == "blue"){
 						if (playerHandler.player1.getStatus() == "attacking"){
-							if (p1y < h *6/16){
-							batch2.draw(p1waterAttack.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, p1y, w/8, w/8);
-							p1y += 3;
+							if (p1y < h *6/16){								
+								batch2.draw(p1waterAttack.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, p1y, w/8, w/8);
+								p1y += AMS;
 							}
 							else{
 								playerHandler.player1.setStatus("normal");
@@ -1303,13 +1318,9 @@ public class WorldRenderer {
 						}	
 					}
 					else if (playerHandler.player1.getElementStatus() == "green"){
-						if (playerHandler.player1.getStatus() == "attacking"){
-							if(p1y < h * 6/16){
+						if (playerHandler.player1.getStatus() == "attacking"){							
 							batch2.draw(p1earthAttack.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, p1y, w/8, w/8);
-							batch2.draw(p1earthLeaves.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, p1y + w/8, w/8, w/8);							
-							}
-
-							
+							batch2.draw(p1earthLeaves.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, p1y + w/8, w/8, w/8);						
 						}	
 					}
 				}
@@ -1326,7 +1337,7 @@ public class WorldRenderer {
 						if (playerHandler.player2.getStatus() == "attacking"){
 							if (p2y > h* 9/16){
 							batch2.draw(p2fireAttack.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, p2y, w/8, w/8);  //h * 5/8 is normal  h * 9/16 is p2 attack height
-							p2y-= 3;}
+							p2y-= AMS;} //player 2's y position subtracts Attack Movement Speed
 							else{						
 								playerHandler.player2.setStatus("normal");
 								resetP2y();
@@ -1338,7 +1349,7 @@ public class WorldRenderer {
 						if (playerHandler.player2.getStatus() == "attacking"){
 							if (p2y > h * 9/16){
 							batch2.draw(p2waterAttack.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, p2y, w/8, w/8);
-							p2y-=3;}
+							p2y-= AMS;}
 							else{						
 								playerHandler.player2.setStatus("normal");
 								resetP2y();
@@ -1405,7 +1416,7 @@ public class WorldRenderer {
 			if (playerHandler.player1.getStatus() == "damaged" && playerHandler.player1.getElementStatus() == "red"){
 				//batch2.draw(p1Boxer.getKeyFrame(5), w/2 - w/16, h * 1/4, w/8, w/8);
 				if ( p1y > h * 1/16){
-					p1y -= 2;
+					p1y -= HMS;
 					if (p1AnimeClock.getTimePassed() < 3){						
 						batch2.draw(p1fireHit.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, p1y, w/8, w/8);  //p1 pushed back limit should be h * 4/16?
 						
@@ -1424,7 +1435,7 @@ public class WorldRenderer {
 			if (playerHandler.player1.getStatus() == "damaged" && playerHandler.player1.getElementStatus() == "blue"){
 				//batch2.draw(p1Boxer.getKeyFrame(5), w/2 - w/16, h * 1/4, w/8, w/8);
 				if ( p1y > h * 1/16){
-					p1y -= 2;
+					p1y -= HMS;
 					if (p1AnimeClock.getTimePassed() < 3){						
 						batch2.draw(p1waterHit.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, p1y, w/8, w/8);  //p1 pushed back limit should be h * 4/16?
 						
@@ -1443,7 +1454,7 @@ public class WorldRenderer {
 			if (playerHandler.player1.getStatus() == "damaged" && playerHandler.player1.getElementStatus() == "green"){
 				//batch2.draw(p1Boxer.getKeyFrame(5), w/2 - w/16, h * 1/4, w/8, w/8);
 				if ( p1y > h * 1/16){
-					p1y -= 2;
+					p1y -= HMS;
 					if (p1AnimeClock.getTimePassed() < 3){						
 						batch2.draw(p1earthHit.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, p1y, w/8, w/8);  //p1 pushed back limit should be h * 4/16?
 						
@@ -1468,7 +1479,7 @@ public class WorldRenderer {
 				if (p1y > h * 4/16){
 					if (p1AnimeClock.getTimePassed() < 3){					
 						batch2.draw(p1NeutralHit.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, p1y, w/8, w/8);  //p1 pushed back limit should be h * 5/16?
-						p1y -= 2;
+						p1y -= HMS;
 					}
 					else {
 						p1AnimeClock.setCurrentMomentInTime(p1AnimeClock.stateTime);	
@@ -1489,7 +1500,7 @@ public class WorldRenderer {
 					
 					if (p2AnimeClock.getTimePassed() < 3){
 						batch2.draw(p2NeutralHit.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, p2y, w/8, w/8);  //p1 pushed back limit should be h * 5/8?
-						p2y += 2;
+						p2y += HMS;
 					}
 					else {						
 						p2AnimeClock.setCurrentMomentInTime(p2AnimeClock.stateTime);	
@@ -1508,7 +1519,7 @@ public class WorldRenderer {
 					
 					if (p2AnimeClock.getTimePassed() < 3){
 						batch2.draw(p2fireHit.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, p2y, w/8, w/8);  //p1 pushed back limit should be h * 5/8?
-						p2y += 2;
+						p2y += HMS;
 					}
 					else {						
 						p2AnimeClock.setCurrentMomentInTime(p2AnimeClock.stateTime);	
@@ -1527,7 +1538,7 @@ public class WorldRenderer {
 					
 					if (p2AnimeClock.getTimePassed() < 3){
 						batch2.draw(p2waterHit.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, p2y, w/8, w/8);  //p1 pushed back limit should be h * 5/8?
-						p2y += 2;
+						p2y += HMS;
 					}
 					else {						
 						p2AnimeClock.setCurrentMomentInTime(p2AnimeClock.stateTime);	
@@ -1546,7 +1557,7 @@ public class WorldRenderer {
 					
 					if (p2AnimeClock.getTimePassed() < 3){
 						batch2.draw(p2earthHit.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, p2y, w/8, w/8);  //p1 pushed back limit should be h * 5/8?
-						p2y += 2;
+						p2y += HMS;
 					}
 					else {						
 						p2AnimeClock.setCurrentMomentInTime(p2AnimeClock.stateTime);	
@@ -1711,20 +1722,29 @@ public class WorldRenderer {
 				
 				//pauseBatch.draw(allSlimes.getKeyFrame(mainGameTimeHandler.getTimePassed()), w/2, h/2, w/4, w/4);
 				
+				if (inputs.getPauseStatus() == true){
+					pauseBatch.draw(darkenedScreen, 0, 0, w, h);
+					pauseBatch.draw(playButton, w * 3/4, h/2 - w/16, w/8,w/8);
+				}
 				
-					
-					if (playerHandler.player1.getHP() <= 0){
+				
+				if(gameState == "over"){					
+				
+					if (playerHandler.player1.getVictoryStatus() == "winner"){
 						pauseBatch.draw(darkenedScreen, 0, 0, w, h);
+						pauseBatch.draw(TRWinner[0], w/2 - w * 3/8, (h * 1/4)- (w * 1/4), w*3/4, w * 1/2);
+						//draw (Texture texture, float x, float y, float originX, float originY, float width, float height, float scaleX,
+						//float scaleY, float rotation, int srcX, int srcY, int srcWidth, int srcHeight, boolean flipX, boolean flipY)
 						//pauseBatch.draw(TRWinner, w/2  -( w * 3/4), (h * 1/2) - (w * 1/4),0,0,1,1,  w*3/4, w * 1/2, 270, true);
 						//pauseBatch.draw(darkenedScreen);
 						//winner is flipped for the top player
 						
 					}
-					else if (playerHandler.player2.getHP() <= 0){
+					else if (playerHandler.player2.getVictoryStatus() == "winner"){
 						pauseBatch.draw(darkenedScreen, 0, 0, w, h);
-						pauseBatch.draw(winner, w/2 - w * 3/8, (h * 1/2) - (w * 1/4),  w*3/4, w * 1/2);
+						pauseBatch.draw(TRWinner[1], w/2 - w * 3/8, (h * 3/4) - (w * 1/4),  w*3/4, w * 1/2);
 					}
-					
+				}	
 				
 	
 				
@@ -1774,7 +1794,13 @@ public class WorldRenderer {
 	}
 	
 	void resetP1y(){
+		
 		p1y = h * 5/16;
+		/*
+		if (p1y > h * 5/16){
+			p1y -= HMS;// h * 5/16;
+		}
+		*/
 	}
 	
 	void resetP2y(){

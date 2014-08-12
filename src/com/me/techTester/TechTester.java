@@ -33,7 +33,7 @@ public class TechTester implements ApplicationListener {
 	public static float stateTime;	
 	boolean showPauseScreen, showEndScreen;
 
-	String gameStatus;  //gameStatus = paused, over, playing, resuming
+	static String gameStatus;  //gameStatus = paused, over, playing, resuming
 
 	
 	@Override
@@ -60,6 +60,7 @@ public class TechTester implements ApplicationListener {
 		wRenderer = new WorldRenderer(mainGameTimeHandler);
 		playerHandler = new PlayerHandler(stateTime);
 		setGameStatus("playing");
+		
 
 		
 		
@@ -72,7 +73,15 @@ public class TechTester implements ApplicationListener {
 	}
 
 	@Override
-	public void render() {		
+	public void render() {	
+		
+		if (wInput.getPauseStatus() == true){
+			
+		}
+		
+		if (wInput.getPauseStatus() == false){
+			stateTime += Gdx.graphics.getDeltaTime() * 1.5f;
+		}
 
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
@@ -82,7 +91,7 @@ public class TechTester implements ApplicationListener {
 			
 		
 		
-		stateTime += Gdx.graphics.getDeltaTime() * 1.5f;
+
 		
 		//}
 		
@@ -104,10 +113,7 @@ public class TechTester implements ApplicationListener {
 		if (playerHandler.player1.getHP() == 0 || playerHandler.player2.getHP() == 0){
 			showEndScreen = true;
 		}
-		*/
-
-		
-		
+		*/		
 		
 		//stateTime += mainGameTimeHandler.getStateTime();
 		//stateTime += Gdx.graphics.getDeltaTime();	
@@ -116,7 +122,6 @@ public class TechTester implements ApplicationListener {
 		wInput.update(getGameStatus());
 		wRenderer.update(getGameStatus(), playerHandler, stateTime, wInput, mainGameTimeHandler);
 		playerHandler.update(getGameStatus(), stateTime, wInput);
-		
 		
 		
 		/*
@@ -132,26 +137,20 @@ public class TechTester implements ApplicationListener {
 			setClickPos(Gdx.input.getX(), Gdx.input.getY());
 		}
 		*/
-		//}
+		//}	
 		
-
-		
-		
-		
-		
+		/*
 		if (getGameStatus() == "paused"){
 			
 			mainGameTimeHandler.timerPause();
 			//wRenderer.p1AnimeClock.timerPause();
 			//wRenderer.p2AnimeClock.timerPause();
 			//playerHandler.p1TimeHandler.timerPause();
-			//playerHandler.p2TimeHandler.timerPause();
-
-			
-			
+			//playerHandler.p2TimeHandler.timerPause();			
 		}
+		*/
 		
-		else if (getGameStatus() == "resuming"){
+		if (getGameStatus() == "resuming"){
 			//resume timers
 			setGameStatus("playing");
 		}
@@ -159,16 +158,9 @@ public class TechTester implements ApplicationListener {
 		
 		else if ( getGameStatus() == "over"){
 			
-		}
-		
-		
-		
+		}		
 
-
-		
-
-	}
-	
+	}	//end of update
 
 	
 
@@ -187,12 +179,14 @@ public class TechTester implements ApplicationListener {
 	
 
 	
-	void setGameStatus(String givenGameStatus){
+	static void setGameStatus(String givenGameStatus){
 		gameStatus = givenGameStatus;
 	}
 	
 	String getGameStatus(){
 		return gameStatus;
 	}
+	
+
 }
 	

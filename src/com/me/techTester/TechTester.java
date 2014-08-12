@@ -22,7 +22,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class TechTester implements ApplicationListener {
 	
-	WorldInput wInput;
+	WorldInput wInput; //THIS  SHOULD BE GONE WHEN I BRING BACK THE OTHER VERSION.
 	WorldRenderer wRenderer;
 	TimeHandler mainGameTimeHandler; 	
 	PlayerHandler playerHandler;

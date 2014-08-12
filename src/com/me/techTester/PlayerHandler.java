@@ -48,11 +48,6 @@ public class PlayerHandler {
 			player1.setVictoryStatus("winner");
 			player2.setVictoryStatus("loser");
 		}
-		else if (player2.getLifeStatus() == "alive" && player1.getLifeStatus() == "dead"){
-			player2.setVictoryStatus("winner");
-			player1.setVictoryStatus("loser");
-		}
-
 		
 		
 		if (gameState == "playing"){
@@ -124,13 +119,9 @@ public class PlayerHandler {
 								player1.calculateDamage(6);
 								p2TimeHandler.resetTimer();
 								break;
-								
 						}//end of player1 reactions						
 	
 			}//end of player2 input
-			else if (p2TimeHandler.getBarStatus() == 8){
-				p2TimeHandler.resetTimer();
-			}
 		
 		//}//end of player 2 alive actions
 		
@@ -200,14 +191,10 @@ public class PlayerHandler {
 								player2.calculateDamage(6);
 								p1TimeHandler.resetTimer();
 								break;
-
 	
 						}//end of switch
 	
 				}//end of player 1 input
-			else if (p1TimeHandler.getBarStatus() == 8){
-				p1TimeHandler.resetTimer();
-			}
 			
 			}
 		

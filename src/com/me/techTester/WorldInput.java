@@ -20,7 +20,6 @@ public class WorldInput {
 	float h, w;
 	Stage playerInputArea, pauseMenu;
 	ButtonStyle pauseBS;
-	boolean pauseStatus;
 	
 
 	
@@ -44,12 +43,12 @@ public class WorldInput {
 		
 		p1Button.setSize(w, h/2);
 		p2Button.setSize( w, h/2);
-		pause.setSize(w/8, h/32);
+		//pause.setSize(playerInputArea.getWidth()/32, playerInputArea.getWidth()/32);
 		//playerInputArea.
 		
 		p1Button.setPosition(0 - w/2, 0 - h/2);
 		p2Button.setPosition(0 - w/2, 0);
-		pause.setPosition(0, h/2 - w/16);
+		pause.setPosition(-1, 0);
 
 		
 		
@@ -63,13 +62,12 @@ public class WorldInput {
 		
 		Gdx.input.setInputProcessor(playerInputArea);
 		
-
-		
-		setPauseStatus(false);
+		if (Gdx.input.isKeyPressed(Keys.J)){
+			
+		}
 		
 		
 	}
-	
 	
 	void update(String gameState){
 		
@@ -85,27 +83,6 @@ public class WorldInput {
 			System.out.println("p2Button Pressed!");
 		}
 		
-		if (pause.isPressed()){
-			setPauseStatus(true);
-		}
-		
-
-		///////////////////////////////////////PRESS J TO PAUSE
-		if (Gdx.input.isKeyPressed(Keys.J)){
-			setPauseStatus(true);
-		}
-		
-		if (getPauseStatus() == true){
-			if (Gdx.input.isKeyPressed(Keys.J)){
-				setPauseStatus(false);
-			}
-		}
-		////////////////////////////////////////////
-		
-		if (pauseStatus == true){
-			TechTester.setGameStatus("paused");
-		}
-		
 	}
 	
 	void setClickPos(int x, int y){
@@ -115,13 +92,5 @@ public class WorldInput {
 	
 	Vector2 getClickPos(){
 		return clickPos;
-	}
-	
-	void setPauseStatus(boolean givenPauseStatus){
-		pauseStatus = givenPauseStatus;
-	}
-	
-	boolean getPauseStatus(){
-		return pauseStatus;
 	}
 }

@@ -199,8 +199,8 @@ public class WorldRenderer {
 		w = Gdx.graphics.getWidth();
 		h = Gdx.graphics.getHeight();
 		
-		p1AnimeClock = new TimeHandler(TechTester.stateTime);
-		p2AnimeClock = new TimeHandler(TechTester.stateTime);
+		p1AnimeClock = new TimeHandler(TwoPlayerPlayScreen.stateTime);
+		p2AnimeClock = new TimeHandler(TwoPlayerPlayScreen.stateTime);
 		p1AnimeClock.setName("p1AnimeClock");
 		p2AnimeClock.setName("p2AnimeClock");
 		p1AnimeClock.setTimerDuration(3);

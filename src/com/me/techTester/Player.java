@@ -2,12 +2,14 @@ package com.me.techTester;
 
 import java.util.Random;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
 
 
 public class Player {
 	
+	float w, h;
 	float HP, oldHP, newHP;
 	float maxHP;
 	float hpPercent;
@@ -25,6 +27,8 @@ public class Player {
 
 
 	public Player(){
+		w = Gdx.graphics.getWidth();
+		h = Gdx.graphics.getHeight();
 		maxHP = 60;
 		oldHP = maxHP;
 		newHP = maxHP;
@@ -36,7 +40,7 @@ public class Player {
 		randomNumGen = new Random();
 		tauntX = 0;
 		setStatus("normal");
-		attackTimer = new TimeHandler(TechTester.stateTime);
+		attackTimer = new TimeHandler(TwoPlayerPlayScreen.stateTime);
 		attackTimer.setTimerDuration(0.75f);
 		/*
 		attackTimer  = new Clocker();
@@ -48,11 +52,11 @@ public class Player {
 	void update(String gameState){
 		
 		//randomNumGen.setSeed(randomNumGen.nextInt(100)); //more randomerer  NOT
-		tauntX = randomNumGen.nextInt((int)TechTester.w);
-		p1TauntY = randomNumGen.nextInt((int)TechTester.h * 7/16) ; //on the bottom side
-		p2TauntY = randomNumGen.nextInt((int)TechTester.h/2 - (int)TechTester.h/16) + TechTester.h/2; //on the top side
+		tauntX = randomNumGen.nextInt((int)w);
+		p1TauntY = randomNumGen.nextInt((int)h * 7/16) ; //on the bottom side
+		p2TauntY = randomNumGen.nextInt((int)h/2 - (int)h/16) + h/2; //on the top side
 		
-		attackTimer.update(gameState, TechTester.stateTime);
+		attackTimer.update(gameState, TwoPlayerPlayScreen.stateTime);
 		attackTimer.setName("attackTimer");
 		
 		

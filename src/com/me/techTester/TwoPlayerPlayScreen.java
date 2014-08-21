@@ -3,6 +3,7 @@ package com.me.techTester;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL10;
 
 public class TwoPlayerPlayScreen implements Screen{
@@ -31,10 +32,19 @@ public class TwoPlayerPlayScreen implements Screen{
 
 		
 		//if (getGameStatus() == "playing"){
+		
+		if (Gdx.input.isKeyPressed(Keys.J)){
+			setGameStatus("paused");
+		}
+		
+		if (Gdx.input.isKeyPressed(Keys.K)){
+			setGameStatus("playing");
+		}
 			
 		
-		
+		if (getGameStatus() == "playing"){
 		stateTime += Gdx.graphics.getDeltaTime() * 1.5f;
+		}
 		
 		//}
 		

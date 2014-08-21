@@ -20,6 +20,7 @@ public class TimeHandler {
 	boolean playerInput, enemyInput;
 	int barStatus;
 	String name;
+	boolean pauseTimeStatus;  //pauseTime is a question.  true or false.  It's a status to be set.
 	
 
 	
@@ -43,8 +44,8 @@ public class TimeHandler {
 		setCurrentMomentInTime(mainGameClock);
 		startTime = getStartTime();	
 		
-
-
+		barStatus = 0;
+		pauseTimeStatus = false;
 		
 	}
 	
@@ -120,16 +121,21 @@ public class TimeHandler {
 		//setTimePassed(0);
 		
 		//timer(99);
-		
-		setStateTime(mainGameClock);
-		endTime = getEndTime();
-		setCurrentMomentInTime(getStateTime());
-		setTimePassed();
-		
-		setTimePassedPercent();
-		
-		setTimeLeft();
-		setTimeLeftPercent();
+		if (mainGameState == "playing"){
+			setStateTime(mainGameClock);
+			endTime = getEndTime();
+			setCurrentMomentInTime(getStateTime());
+			setTimePassed();
+			
+			setTimePassedPercent();
+			
+			setTimeLeft();
+			setTimeLeftPercent();
+			setBarStatus();
+		}
+		else{
+			
+		}
 		
 
 		/*
@@ -143,7 +149,7 @@ public class TimeHandler {
 				*/
 		
 		
-		debug();
+		debug(mainGameState);
 		
 	}
 	
@@ -311,41 +317,47 @@ public class TimeHandler {
 	}
 	
 	
-	
 	int getBarStatus(){
+		return barStatus;
+	}
+	
+	
+	void  setBarStatus(){
 		if (getTimePassedPercent() > 0  && getTimePassedPercent() < 7){
-			return 8;		
+			barStatus = 7;		
 		}
 		else if(getTimePassedPercent() > 7 && getTimePassedPercent() <= 100/7){
-			return 0;
+			barStatus = 0;
 		}
 		else if(getTimePassedPercent() > 100/7 && getTimePassedPercent() <= ((100/7) * 2)){
-			return 1;
+			barStatus =  1;
 		}
 		else if(getTimePassedPercent() > (100/7) * 2 && getTimePassedPercent() <= ((100/7) * 3)){
-			return 2;
+			barStatus = 2;
 		}
 		else if(getTimePassedPercent() > (100/7) * 3 && getTimePassedPercent() <= ((100/7) * 4)){
-			return 3;
+			barStatus = 3;
 		}
 		else if(getTimePassedPercent() > (100/7) * 4 && getTimePassedPercent() <= ((100/7) * 5)){
-			return 4;
+			barStatus = 4;
 		}
 		else if(getTimePassedPercent() > (100/7) * 5 && getTimePassedPercent() <= ((100/7) * 6)){
-			return 5;
+			barStatus = 5;
 		}
-		else if(getTimePassedPercent() > (100/7) * 6 ){
-			return 6;
+		else if (getTimePassedPercent() > (100/7) * 6 && getTimePassedPercent() <= 100){
+			barStatus = 6;
 		}
-		else{
-			return 8;
+		else if (getTimePassedPercent() > 100){
+			barStatus = 8;
 		}
+
 	}
 	
 
 	
-	void debug(){
+	void debug(String gamestate){
 		
+		System.out.println("                                             gameState: "+ gamestate);
 		System.out.println("\n\n                                           startPoint: " + getStartTime());
 		System.out.println("                                               endpoint :" + getEndTime())	;					
 		
@@ -357,6 +369,14 @@ public class TimeHandler {
 		System.out.println("                                             Time Left %: " + timeLeftPercent);
 		
 		
+	}
+	
+	void setPauseTimeStatus(boolean trueOrFalse){
+		pauseTimeStatus = trueOrFalse;
+	}
+	
+	boolean getPauseTimeStatus(){
+		return pauseTimeStatus;
 	}
 	
 

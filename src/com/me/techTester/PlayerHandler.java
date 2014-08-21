@@ -119,6 +119,8 @@ public class PlayerHandler {
 								player1.calculateDamage(6);
 								p2TimeHandler.resetTimer();
 								break;
+							case 8:
+								p2TimeHandler.resetTimer();
 						}//end of player1 reactions						
 	
 			}//end of player2 input
@@ -191,12 +193,21 @@ public class PlayerHandler {
 								player2.calculateDamage(6);
 								p1TimeHandler.resetTimer();
 								break;
+
+								
 	
 						}//end of switch
+						
+						
 	
-				}//end of player 1 input
-			
+				}//end of player 1 input			
 			}
+		if (p1TimeHandler.getBarStatus() == 8){
+			p1TimeHandler.resetTimer();
+		}
+		if (p2TimeHandler.getBarStatus() == 8){
+			p2TimeHandler.resetTimer();
+		}
 		
 		
 		

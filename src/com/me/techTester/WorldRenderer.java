@@ -768,7 +768,7 @@ public class WorldRenderer {
 			*/
 			backgroundRect.begin(ShapeType.Filled);
 			backgroundRect.rect(0,0,w,h);
-			backgroundRect.setColor(Color.valueOf("DBBDAB"));
+			backgroundRect.setColor(Color.valueOf("919191"));
 			backgroundRect.end();
 			p1AnimeClock.update(gameState, stateTime);
 			p2AnimeClock.update(gameState, stateTime);
@@ -1612,7 +1612,7 @@ public class WorldRenderer {
 			//PAUSE BUTTON PLACEMENT
 			pauseBatch.begin();		
 			pauseBatch.draw(pauseButton, 0, h/2 - w/8, w/4, w/4);
-			if (getPauseStatus() == true){
+			if (gameState == "paused"){
 				pauseBatch.draw(darkenedScreen, 0, 0, w, h);
 			}
 			pauseBatch.end();

@@ -6,7 +6,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL10;
 
-public class TwoPlayerPlayScreen implements Screen{
+public class OnePlayerPlayScreen implements Screen{
+	
+
 	
 	WorldInput wInput; //THIS  SHOULD BE GONE WHEN I BRING BACK THE OTHER VERSION.
 	WorldRenderer wRenderer;
@@ -18,10 +20,11 @@ public class TwoPlayerPlayScreen implements Screen{
 	int stopper1, stopper2; //these should act like counters, a touch on the screen will cause them to go up by one. when they go up to one, they will cut off further activity.  they will then be reset to 0 on release
 	public static float stateTime;	
 	boolean showPauseScreen, showEndScreen;
+	float choice;
 
 	String gameStatus;  //gameStatus = paused, over, playing, resuming
 	
-	public TwoPlayerPlayScreen(Game game){
+	public OnePlayerPlayScreen(Game game){
 		
 	}
 
@@ -37,15 +40,12 @@ public class TwoPlayerPlayScreen implements Screen{
 		
 			if (Gdx.input.isKeyPressed(Keys.J)){
 				setGameStatus("paused");
-			}
-		
+			}		
 		
 		
 			if (Gdx.input.isKeyPressed(Keys.K)){
 				setGameStatus("playing");
-			}
-		
-		
+			}		
 			
 		
 		if (getGameStatus() == "playing"){
@@ -72,9 +72,7 @@ public class TwoPlayerPlayScreen implements Screen{
 		if (playerHandler.player1.getHP() == 0 || playerHandler.player2.getHP() == 0){
 			showEndScreen = true;
 		}
-		*/
-
-		
+		*/	
 		
 		
 		//stateTime += mainGameTimeHandler.getStateTime();
@@ -102,10 +100,6 @@ public class TwoPlayerPlayScreen implements Screen{
 		*/
 		//}
 		
-
-		
-		
-		
 		
 		if (getGameStatus() == "paused"){
 			
@@ -129,13 +123,6 @@ public class TwoPlayerPlayScreen implements Screen{
 			
 		}
 		
-		
-		
-
-
-		
-
-		
 	}
 
 	@Override
@@ -148,10 +135,16 @@ public class TwoPlayerPlayScreen implements Screen{
 	public void show() {
 		
 		
+		//TODO  create foe selector - switch statements
+		//TODO create
+		
+		
 		w = Gdx.graphics.getWidth();
 		h = Gdx.graphics.getHeight();
 		
 		stateTime = 0;
+		
+		
 		
 		mainGameTimeHandler = new TimeHandler(stateTime);
 		mainGameTimeHandler.setTimerDuration(99);

@@ -5,8 +5,10 @@ import com.badlogic.gdx.Input.Keys;
 
 public class PlayerHandler {
 	
-	TimeHandler p1TimeHandler, p2TimeHandler;
-	Player player1, player2;
+	TimeHandler p1TimeHandler, p2TimeHandler, foeTimeHandler;
+	Player player1, player2; 
+	Foe foe;
+	
 	
 	
 	public PlayerHandler(float stateTime){
@@ -27,9 +29,16 @@ public class PlayerHandler {
 		p2TimeHandler.setTimerDuration(5);
 		player1.setLifeStatus("alive");
 		player2.setLifeStatus("alive");
+		
+	}
+	
+	public PlayerHandler(float stateTime, Foe foe){
+		
 	}
 	
 	public void update(String gameState, float stateTime, WorldInput wInput){
+		
+		
 		
 		
 		

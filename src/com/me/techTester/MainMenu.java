@@ -125,6 +125,7 @@ public class MainMenu implements Screen{
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
 				System.out.println("p1 choice clicked");
+				game.setScreen(new OnePlayerPlayScreen(game));
 				return true;
 			}
 		});

@@ -433,7 +433,7 @@ public class WorldRenderer {
 			timerNumbers[i] = temp1[i][j];
 		}
 		
-		playbackTextures = new Texture(Gdx.files.internal("playbackButtons.png"));
+		playbackTextures = new Texture(Gdx.files.internal("playbackButtons2.png"));
 		playBackButtons = new TextureRegion[5];
 		temp1 = TextureRegion.split(playbackTextures, 16, 16);
 		for (int i = 0; i < 5; i++){
@@ -441,7 +441,7 @@ public class WorldRenderer {
 			playBackButtons[i] = temp1[i][j];
 		}
 		
-		pauseButton = playBackButtons[3];
+		pauseButton = playBackButtons[0];
 		
 		winner = new Texture(Gdx.files.internal("winner2.png"));
 		TRWinner = new TextureRegion[2];
@@ -638,8 +638,8 @@ public class WorldRenderer {
 		
 		/////////////////////////////////////////////////////P2 Fire
 		p2fireNormal = new Animation(0.6f, TRp2fireNormal);
-		p2fireAttack = new Animation(0.6f, TRp2fireAttack);
-		p2fireHit = new Animation(0.6f, TRp2fireHit);
+		p2fireAttack = new Animation(0.2f, TRp2fireAttack);
+		p2fireHit = new Animation(0.2f, TRp2fireHit);
 		
 		//////////////////////////////////////////////////////P1 Fire
 		p1fireNormal = new Animation(0.6f, TRp1fireNormal);
@@ -688,6 +688,7 @@ public class WorldRenderer {
 		
 		p1NeutralNormal.setPlayMode(Animation.LOOP_PINGPONG);
 		p2NeutralNormal.setPlayMode(Animation.LOOP_PINGPONG);
+		p2fireNormal.setPlayMode(Animation.LOOP_PINGPONG);
 		
 		
 		/*
@@ -842,24 +843,24 @@ public class WorldRenderer {
 			
 			//placement of floor icons for bottom player
 			if (playerHandler.player1.getElementStatus() == "green"){
-				batch2.draw(p1Background[2],0,h * 7/32, w, h * 3/16);
+				batch2.draw(p1Background[2],0,h * 7/32, w, h * 1/4);  //height was originally h * 3/6 // orginal y coordinate: h * 7/32
 			}
 			else if (playerHandler.player1.getElementStatus() == "blue"){
-				batch2.draw(p1Background[1],0,h * 7/32, w, h * 3/16);
+				batch2.draw(p1Background[1],0,h * 7/32, w, h * 1/4);
 			}
 			else if (playerHandler.player1.getElementStatus() == "red"){
-				batch2.draw(p1Background[0],0,h * 7/32, w, h * 3/16);
+				batch2.draw(p1Background[0],0,h * 7/32, w, h * 1/4);
 			}
 			
 			//placement of floor icons for top player
 			if (playerHandler.player2.getElementStatus() == "green"){
-				batch2.draw(p2Background[2],0,h * 19/32, w, h * 3/16);
+				batch2.draw(p2Background[2],0,h * 17/32, w, h * 1/4);
 			}
 			else if (playerHandler.player2.getElementStatus() == "blue"){
-				batch2.draw(p2Background[1],0,h * 19/32, w, h * 3/16);
+				batch2.draw(p2Background[1],0,h * 17/32, w, h * 1/4);
 			}
 			else if (playerHandler.player2.getElementStatus() == "red"){
-				batch2.draw(p2Background[0],0,h * 19/32, w, h * 3/16);
+				batch2.draw(p2Background[0],0,h * 17/32, w, h * 1/4); //original height y location: h * 19/32
 			}
 			
 			
@@ -938,6 +939,7 @@ public class WorldRenderer {
 			
 			
 			//PLAYER TIMERS AND HP BARS
+			/*
 			player1Timer.begin(ShapeType.Filled);
 			player1Timer.rect(0, (float)(Gdx.graphics.getHeight() * 3/16), (float)(Gdx.graphics.getWidth() * playerHandler.p1TimeHandler.timePassedPercent * 0.01), (float)(Gdx.graphics.getHeight()/32));
 			player1Timer.setColor(Color.BLUE);		
@@ -947,7 +949,13 @@ public class WorldRenderer {
 			enemyTime.rect(Gdx.graphics.getWidth(), (float)Gdx.graphics.getHeight()* 25/32, (float)(Gdx.graphics.getWidth() * -playerHandler.p2TimeHandler.timePassedPercent * 0.01f), (float)(Gdx.graphics.getHeight()/32));
 			enemyTime.setColor(Color.RED);	
 			enemyTime.end();
+			*/
 			
+			
+			
+			
+			
+			//no longer needed
 			/*  5s countdown timer
 			sr2.begin(ShapeType.Filled);
 			sr2.rect(10, Gdx.graphics.getHeight()-Gdx.graphics.getHeight()* 2/15, playerHandler.p1TimeHandler.timeLeftPercent * 2, Gdx.graphics.getHeight()/15);
@@ -955,7 +963,7 @@ public class WorldRenderer {
 			sr2.end();
 			*/
 			
-			
+			/*
 			HPlines.begin(ShapeType.Filled);  //lines to show parts of the HP bars
 			for (int i = 1; i < 11; i++){
 				HPlines.rect(w * 1/10 * i ,h/2 - h/32,1, h/16 );
@@ -965,17 +973,18 @@ public class WorldRenderer {
 			HPlines.rect(w * 16/playerHandler.player1.getMaxHP(), h/2,2, h/16 );
 			HPlines.setColor(Color.BLACK);
 			HPlines.end();
+			*/
 			
 			
 			//p1 HP border and meter
 			
 			player1HPBar.begin(ShapeType.Filled);
-			player1HPBar.rect(w/4, h/2 - h/16, (w -w/4) * (playerHandler.player1.getHPPercent() * 0.01f) , h/16 );
+			player1HPBar.rect(0, h * 3/16, (w  * playerHandler.player1.getHPPercent() * 0.01f) , h/32 ); // move Y to H * 3/16 // old height: h/2 - h/16 //old starting point: (w -w/4) * (playerHandler.player1.getHPPercent() * 0.01f)
 			player1HPBar.setColor(Color.valueOf("33CC00"));
 			player1HPBar.end();
 			
 			p1HPBorder.begin(ShapeType.Line);
-			p1HPBorder.rect(w/4, h/2 - h/16, w, h/16 );
+			p1HPBorder.rect(0, h * 3/16, w, h/32 );  
 			p1HPBorder.setColor(Color.BLACK);//(Color.valueOf("33CC33"));
 			p1HPBorder.end();
 			
@@ -983,12 +992,12 @@ public class WorldRenderer {
 			//p2 HP border and meter		
 			
 			player2HP.begin(ShapeType.Filled);
-			player2HP.rect(w, h/2, ((w - w/4) * -playerHandler.player2.getHPPercent() * 0.01f), h/16 );
+			player2HP.rect(w, h * 25/32, (w  * -playerHandler.player2.getHPPercent() * 0.01f), h/32 ); // move to h * 25/32 // old height h/2 // old starting point: ((w - w/4) * -playerHandler.player2.getHPPercent() * 0.01f)
 			player2HP.setColor(Color.valueOf("CC0033"));
 			player2HP.end();	
 			
 			p2HPBorder.begin(ShapeType.Line);
-			p2HPBorder.rect(w/4, h/2, w * 3/4, h/16);
+			p2HPBorder.rect(0, h * 25/32, w, h/32);
 			p2HPBorder.setColor(Color.BLACK);//(Color.RED);
 			p2HPBorder.end();
 			
@@ -1611,7 +1620,7 @@ public class WorldRenderer {
 			
 			//PAUSE BUTTON PLACEMENT
 			pauseBatch.begin();		
-			pauseBatch.draw(pauseButton, 0, h/2 - w/8, w/4, w/4);
+			pauseBatch.draw(pauseButton, w - w/8, h/2 - w/16, w/8, w/8);
 			if (gameState == "paused"){
 				pauseBatch.draw(darkenedScreen, 0, 0, w, h);
 			}

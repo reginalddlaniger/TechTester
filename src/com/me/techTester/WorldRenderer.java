@@ -433,7 +433,7 @@ public class WorldRenderer {
 			timerNumbers[i] = temp1[i][j];
 		}
 		
-		playbackTextures = new Texture(Gdx.files.internal("playbackButtons2.png"));
+		playbackTextures = new Texture(Gdx.files.internal("playbackButtons3.png"));
 		playBackButtons = new TextureRegion[5];
 		temp1 = TextureRegion.split(playbackTextures, 16, 16);
 		for (int i = 0; i < 5; i++){
@@ -864,27 +864,47 @@ public class WorldRenderer {
 			}
 			
 			
+			//draws the attack icons on the player 1 side
+			
+			for (int i = 0; i < 3; i++){
+				batch2.draw(rpsIcons[i], (i * w/6) + w/16, w * 3/32, w/16, w/16);
+			}
+			
+			for (int i = 0; i < 3; i++){
+				batch2.draw(rpsIcons[i], ((i  + 3) * w/6 ) + w * 1/32, w/16, w/8, w/8);// in the x argument, the part in parentheses spaces the icons. the part after adjusts the icons
+			}
+			
+			//draws attack icons on the player 2 side
+			for (int i = 3; i < 6; i++){			
+				batch2.draw(rpsIcons[i], (8 - i) * w/6 + w /16  , (h * 15/16) - ( w/32), w/16, w/16);			
+			}
+			
+			for (int i = 3; i < 6; i++){
+				batch2.draw(rpsIcons[i], (5 - i) * w/6 + w/32, h  - (w * 3/16), 2* w/16, 2 * w/16);
+			}
+			
+			
 			//placement of the lil icon for available action for enemy (P2)  //try to get the selecter effect a little more horizontally centered on the smaller icons
 			if (playerHandler.p2TimeHandler.getTimePassedPercent() > 0 && playerHandler.p2TimeHandler.getTimePassedPercent() < (100/7) ){			
 			}
 			else if (playerHandler.p2TimeHandler.getTimePassedPercent() >= 100/7 && playerHandler.p2TimeHandler.getTimePassedPercent() < (100/7)*2){
-				batch2.draw(p1EffectIcons[1], w - w/8 , h - (w *3/16), w/8, w/8);
+				batch2.draw(playBackButtons[3], w - w/8 - (w * 1/128) , h - (w *3/16), w/8, w/8);
 				//%%batch2.draw(icons[1], Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()                SET ICONS HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEXXX
 			}
 			else if(playerHandler.p2TimeHandler.getTimePassedPercent() >= (100/7 ) * 2 && playerHandler.p2TimeHandler.getTimePassedPercent() < (100/7)*3){
-				batch2.draw(p1EffectIcons[1], w* 5/6 - w/8 , h - (w *3/16), w/8, w/8);
+				batch2.draw(playBackButtons[3], w* 5/6 - w/8 - (w * 1/128) , h - (w *3/16), w/8, w/8);
 			}
 			else if(playerHandler.p2TimeHandler.getTimePassedPercent() >= (100/7) * 3 && playerHandler.p2TimeHandler.getTimePassedPercent() < (100/7)*4){
-				batch2.draw(p1EffectIcons[1], w * 4/6 - w/8, h - (w * 3/16), w/8, w/8);
+				batch2.draw(playBackButtons[3], w * 4/6 - w/8 - (w * 1/128), h - (w * 3/16), w/8, w/8);
 			}
 			else if(playerHandler.p2TimeHandler.getTimePassedPercent() >= (100/7)* 4  && playerHandler.p2TimeHandler.getTimePassedPercent() < (100/7)*5){
-				batch2.draw(p1EffectIcons[1], w*3/6 - w/8 , h - (w * 3/16), w/8, w/8);
+				batch2.draw(playBackButtons[3], w*3/6 - w/8 - (w * 1/128) , h - (w * 3/16), w/8, w/8);
 			}
 			else if(playerHandler.p2TimeHandler.getTimePassedPercent() >= (100/7) * 5 && playerHandler.p2TimeHandler.getTimePassedPercent() <= (100/7)*6){
-				batch2.draw(p1EffectIcons[1], w*2/6 - w/8, h - (w * 3/16), w/8, w/8);
+				batch2.draw(playBackButtons[3], w*2/6 - w/8 - (w * 1/128), h - (w * 3/16), w/8, w/8);
 			}
 			else if(playerHandler.p2TimeHandler.getTimePassedPercent() >= 100/7 * 6 && playerHandler.p2TimeHandler.getTimePassedPercent() <= 100){
-				batch2.draw(p1EffectIcons[1],  w/6 - w/8, h - (w * 3/16), w/8, w/8);
+				batch2.draw(playBackButtons[3],  w/6 - w/8 - (w * 1/128), h - (w * 3/16), w/8, w/8);
 			}
 			else{			
 			}
@@ -894,22 +914,22 @@ public class WorldRenderer {
 				
 			}
 			else if(playerHandler.p1TimeHandler.getTimePassedPercent() >= 100/7 && playerHandler.p1TimeHandler.getTimePassedPercent() < ((100/7) * 2)){
-				batch2.draw(p1EffectIcons[1], w/6 - w/8 , w/16, w/8, w/8);
+				batch2.draw(playBackButtons[3], w/6 - w/8 - (w * 1/128) , w/16, w/8, w/8);
 			}
 			else if(playerHandler.p1TimeHandler.getTimePassedPercent() >= 100/7 * 2 && playerHandler.p1TimeHandler.getTimePassedPercent() < 100/7 * 3){
-				batch2.draw(p1EffectIcons[1], w * 2/6 - w/8 , w/16, w/8, w/8);
+				batch2.draw(playBackButtons[3], w * 2/6 - w/8 - (w * 1/128) , w/16, w/8, w/8);
 			}
 			else if(playerHandler.p1TimeHandler.getTimePassedPercent() >= 100/7 * 3 && playerHandler.p1TimeHandler.getTimePassedPercent() < 100/7 * 4){
-				batch2.draw(p1EffectIcons[1], w/2 - w/8 , w/16, w/8, w/8);
+				batch2.draw(playBackButtons[3], w/2 - w/8 - (w * 1/128) , w/16, w/8, w/8);
 			}
 			else if(playerHandler.p1TimeHandler.getTimePassedPercent() >= 100/7 * 4 && playerHandler.p1TimeHandler.getTimePassedPercent() < 100/7 * 5){
-				batch2.draw(p1EffectIcons[1], w * 2/3 - w/8 , w/16, w/8, w/8);
+				batch2.draw(playBackButtons[3], w * 2/3 - w/8 - (w * 1/64) , w/16, w/8, w/8);
 			}		
 			else if(playerHandler.p1TimeHandler.getTimePassedPercent() >= 100/7 * 5 && playerHandler.p1TimeHandler.getTimePassedPercent() < 100/7 * 6){
-				batch2.draw(p1EffectIcons[1], w * 5/6 - w/8, w/16, w/8, w/8);
+				batch2.draw(playBackButtons[3], w * 5/6 - w/8 - (w * 1/128), w/16, w/8, w/8);
 			}
 			else if(playerHandler.p1TimeHandler.getTimePassedPercent() >= 100/7 * 6 && playerHandler.p1TimeHandler.getTimePassedPercent() <= 100){
-				batch2.draw(p1EffectIcons[1], w - w/8, w/16, w/8, w/8);
+				batch2.draw(playBackButtons[3], w - w/8 - (w * 1/128), w/16, w/8, w/8);
 			}
 			
 			else{			
@@ -1019,24 +1039,7 @@ public class WorldRenderer {
 			}
 	
 			
-			//draws the attack icons on the player side
-	
-			for (int i = 0; i < 3; i++){
-				batch2.draw(rpsIcons[i], (i * w/6) + w/16, w * 3/32, w/16, w/16);
-			}
-			
-			for (int i = 0; i < 3; i++){
-				batch2.draw(rpsIcons[i], ((i  + 3) * w/6 ) + w * 1/32,w/16, w/8, w/8);// in the x argument, the part in parentheses spaces the icons. the part after adjusts the icons
-			}
-			
-			//draws attack icons on the enemy side
-			for (int i = 3; i < 6; i++){			
-				batch2.draw(rpsIcons[i], (8 - i) * w/6 + w /16  , (h * 15/16) - ( w/32), w/16, w/16);			
-			}
-			
-			for (int i = 3; i < 6; i++){
-				batch2.draw(rpsIcons[i], (5 - i) * w/6 + w/32, h  - (w * 3/16), 2* w/16, 2 * w/16);
-			}
+
 			
 			
 			

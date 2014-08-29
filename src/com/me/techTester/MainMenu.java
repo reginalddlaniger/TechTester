@@ -43,16 +43,20 @@ public class MainMenu implements Screen{
 		
 		batch.begin();
 		
-		bgColor.begin(ShapeType.Filled);		
-		bgColor.setColor(89,89,89,255);
-		bgColor.rect(0, 0, w, h);
-		bgColor.end();
+
 		batch.end();
 		
 
 		
-		stage.act();		
+		stage.act();
+		
+		
 		batch.begin();
+		
+		bgColor.begin(ShapeType.Filled);		
+		bgColor.setColor(89,89,89,255);
+		bgColor.rect(0, 0, w, h);
+		bgColor.end();
 
 		
 		stage.draw();		//needs to have buttons amd their pack information
@@ -97,7 +101,7 @@ public class MainMenu implements Screen{
 		p2BS.down = skin.getDrawable("button2Pdown");
 		
 		qGBS.up = skin.getDrawable("buttonQuitUp");
-		qGBS.down = skin.getDrawable("buttonQuitUp");
+		qGBS.down = skin.getDrawable("buttonQuitDown");
 		
 		onePGame.setSize(w/8, w/8);
 		onePGame.setPosition(w/2 - w/16, (h * 3/4) - w/8);

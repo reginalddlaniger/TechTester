@@ -63,6 +63,7 @@ public class TwoPlayerPlayScreen implements Screen{
 		if (mainGameTimeHandler.getTimePassed() >= 99){
 			setGameStatus("over");
 		}
+		
 		if (playerHandler.player1.getHP() <= 0 || playerHandler.player2.getHP() <= 0){
 			setGameStatus("over");
 		}

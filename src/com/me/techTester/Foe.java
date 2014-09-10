@@ -58,9 +58,11 @@ public class Foe extends Player{
 				break;			
 		}
 		
-		//attackChoice = "wait";
+		attackChoice = "wait";
+		setAttackOption(generator.nextInt(99));
 		setAttackReady(false);
 		roll();
+		setLifeStatus("alive");
 		
 		
 	}
@@ -71,14 +73,14 @@ public class Foe extends Player{
 	void update(){
 		
 		this.debug();
-		int test = generator.nextInt(99);
-		System.out.println(test);
+		//int test = generator.nextInt(99);
+		//System.out.println(test);
 		
 
 		
-		if (status == "alive" && getAttackReady() == false){ 		 
+		if (getLifeStatus() == "alive" && getAttackReady() == false){ 		 
 			//attackOption = (int)(100/7) +1;
-			setAttackOption(55);
+			setAttackOption(generator.nextInt(99));
 		}
 		
 		
@@ -87,54 +89,53 @@ public class Foe extends Player{
 				setAttackChoice("taunt");
 			}
 		
-			if (getAttackOption() > 33 && getAttackOption() <= 66){
+			else if (getAttackOption() > 33 && getAttackOption() <= 66){
 				setAttackChoice("miss");
 				}
 				
-			if (getAttackOption() > 66 && getAttackOption() <= 99){
+			else if (getAttackOption() > 66 && getAttackOption() <= 99){
 				setAttackChoice("hit");
 			}
 		}
 		
-		if (getName() == "Shrimp"){
+		else if (getName() == "Shrimp"){
 			if (getAttackOption() > 0 && getAttackOption() <= 15){
 				setAttackChoice("taunt");
 			}
 		
-			if (getAttackOption() > 15 && getAttackOption() <= 30){
+			else if (getAttackOption() > 15 && getAttackOption() <= 30){
 				setAttackChoice("miss");
 				}
 				
-			if (getAttackOption() > 30 && getAttackOption() <= 99){
+			else if (getAttackOption() > 30 && getAttackOption() <= 99){
 				setAttackChoice("hit");
 			}
 		}
 		
-		if (getName() == "Heavy"){
+		else if (getName() == "Heavy"){
 			if (getAttackOption() > 0 && getAttackOption() <= 3){
 				setAttackChoice("taunt");
 			}
 		
-			if (getAttackOption() > 3 && getAttackOption() <= 38){
+			else if (getAttackOption() > 3 && getAttackOption() <= 38){
 				setAttackChoice("miss");
 				}
 				
-			if (getAttackOption() > 38 && getAttackOption() <= 99){
+			else if (getAttackOption() > 38 && getAttackOption() <= 99){
 				setAttackChoice("hit");
 			}
-		}
+		}		
 		
-		
-		if (getName() == "Vari"){
+		else if (getName() == "Vari"){
 			if (getAttackOption() > 0 && getAttackOption() <= 9 ){
 				setAttackChoice("taunt");
 			}
 		
-			if (getAttackOption() > 9 && getAttackOption() <= 14){
+			else if (getAttackOption() > 9 && getAttackOption() <= 14){
 				setAttackChoice("miss");
-				}
+			}
 				
-			if (getAttackOption() > 14 && getAttackOption() <= 99){
+			else if (getAttackOption() > 14 && getAttackOption() <= 99){
 				setAttackChoice("hit");
 			}
 		}
@@ -182,7 +183,7 @@ public class Foe extends Player{
 		
 		seed = new Random();
 		rand = new Random(seed.nextInt((int)max));  // this is to help determine where 2p will aim on the former attack bar
-		float tempInt = rand.nextInt((int)(max - min) + (int)min);
+		float tempInt = rand.nextInt((int)(max - min) ) + (int)min;
 		//rand.next
 		
 		float tempFloat = rand.nextFloat();
@@ -196,7 +197,7 @@ public class Foe extends Player{
 		rand = new Random(seed.nextInt(100/7));  // this is to help determine where 2p will aim on the former attack bar
 		int intBit = rand.nextInt(100/7);
 		float floatBit = rand.nextFloat();
-		attackPoint = intBit + floatBit;		
+		attackPoint = intBit + floatBit + 7;		
 	
 	}
 	
@@ -208,11 +209,21 @@ public class Foe extends Player{
 		return tempi;
 	}
 
+	void setAttackOption(){
+		
+		rand = new Random();
+		System.out.println("rand =" + rand);
+		
+		//System.out.println("given attack option = " + givenAttackOption);
+		this.attackOption = rand.nextInt(99);//rand.nextInt(99);//
+	}
+	
 	void setAttackOption(int givenAttackOption){
 		
 		/*rand = new Random();
 		System.out.println("rand =" + rand);
 		*/
+		System.out.println("given attack option = " + givenAttackOption);
 		this.attackOption = givenAttackOption;//rand.nextInt(99);//
 	}
 

@@ -160,7 +160,8 @@ public class OnePlayerPlayScreen implements Screen{
 		
 		wInput = new WorldInput();
 		wRenderer = new WorldRenderer(mainGameTimeHandler);
-		playerHandler = new PlayerHandler(stateTime);
+		playerHandler = new PlayerHandler(stateTime, "onePlayer");
+		playerHandler.setGameMode("onePlayer");
 		setGameStatus("playing");
 		
 		//setScreen(new MainMenu(game));

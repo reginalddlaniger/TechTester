@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.GL10;
 
 public class TwoPlayerPlayScreen implements Screen{
 	
-	WorldInput wInput; //THIS  SHOULD BE GONE WHEN I BRING BACK THE OTHER VERSION.
+	WorldInput wInput; //THIS  SHOULD BE GONE WHEN I BRING BACK THE OTHER VERSION. //i no long understand why
 	WorldRenderer wRenderer;
 	TimeHandler mainGameTimeHandler; 	
 	PlayerHandler playerHandler;
@@ -67,6 +67,8 @@ public class TwoPlayerPlayScreen implements Screen{
 		if (playerHandler.player1.getHP() <= 0 || playerHandler.player2.getHP() <= 0){
 			setGameStatus("over");
 		}
+		
+		
 		
 		
 		/*
@@ -168,7 +170,8 @@ public class TwoPlayerPlayScreen implements Screen{
 		
 		wInput = new WorldInput();
 		wRenderer = new WorldRenderer(mainGameTimeHandler);
-		playerHandler = new PlayerHandler(stateTime);
+		playerHandler = new PlayerHandler(stateTime, "twoPlayer");
+		playerHandler.setGameMode("twoPlayer");
 		setGameStatus("playing");
 		
 		//setScreen(new MainMenu(game));

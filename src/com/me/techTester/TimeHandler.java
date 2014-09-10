@@ -149,7 +149,7 @@ public class TimeHandler {
 				*/
 		
 		
-		debug(mainGameState);
+		//debug(mainGameState);
 		
 	}
 	
@@ -348,6 +348,40 @@ public class TimeHandler {
 			barStatus = 6;
 		}
 		else if (getTimePassedPercent() > 100){
+			barStatus = 8;
+		}
+
+	}
+	
+	void  setBarStatus(float foeAttackPoint){
+		if (foeAttackPoint > 0  && foeAttackPoint < 7){
+			barStatus = 7;		
+		}
+		else if(foeAttackPoint > 7 && foeAttackPoint <= 100/7){
+			barStatus = 0;
+		}
+		else if(foeAttackPoint > 100/7 && foeAttackPoint <= ((100/7) * 2)){
+			barStatus =  1;
+		}
+		else if(foeAttackPoint > (100/7) * 2 && foeAttackPoint <= ((100/7) * 3)){
+			barStatus = 2;
+		}
+		else if(foeAttackPoint > (100/7) * 3 && foeAttackPoint <= ((100/7) * 4)){
+			barStatus = 3;
+		}
+		else if(foeAttackPoint > (100/7) * 4 && foeAttackPoint <= ((100/7) * 5)){
+			barStatus = 4;
+		}
+		else if(foeAttackPoint > (100/7) * 5 && foeAttackPoint <= ((100/7) * 6)){
+			barStatus = 5;
+		}
+		else if (foeAttackPoint > (100/7) * 6 && foeAttackPoint < 100){
+			barStatus = 6;
+		}
+		else if (foeAttackPoint == 100){
+			barStatus = 7;
+		}
+		else if (foeAttackPoint > 100){
 			barStatus = 8;
 		}
 

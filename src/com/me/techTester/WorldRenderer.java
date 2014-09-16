@@ -2,7 +2,6 @@ package com.me.techTester;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -14,7 +13,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 
@@ -27,8 +25,8 @@ public class WorldRenderer {
 	
 	private OrthographicCamera camera;
 
-	private Texture texture;
-	private Sprite sprite;
+//	private Texture texture;
+//	private Sprite sprite;
 
 	ShapeRenderer markerCase, HPlines, backgroundRect;
 	ShapeRenderer player1HPBar, p1HPBorder, player1Timer, sr2, p1Status;
@@ -103,6 +101,9 @@ public class WorldRenderer {
 	Animation p2waterTransform;
 	Animation p2earthTransform;
 	
+	Animation p1Hearts;
+	Animation p2Hearts;
+	
 	
 	TextureRegion[] TRp1fireNormal;
 	TextureRegion[] TRp1fireAttack;
@@ -143,6 +144,9 @@ public class WorldRenderer {
 	TextureRegion[] TRp2fireTransform;
 	TextureRegion[] TRp2waterTransform;
 	TextureRegion[] TRp2earthTransform;
+	
+	TextureRegion[] TRp1Hearts;
+	TextureRegion[] TRp2Hearts;
 	
 	
 
@@ -244,7 +248,7 @@ public class WorldRenderer {
 		player1Timer = new ShapeRenderer();
 		sr2 = new ShapeRenderer();
 		enemyTime = new ShapeRenderer();
-		texture = new Texture(Gdx.files.internal("cursor.png"));
+//		texture = new Texture(Gdx.files.internal("cursor.png"));
 
 		
 
@@ -262,7 +266,7 @@ public class WorldRenderer {
 
 		HPlines = new ShapeRenderer();
 		
-		background = new Texture(Gdx.files.internal("fwefloor.png"));
+		background = new Texture(Gdx.files.internal("fwefloor2.png"));
 
 
 		red = new Color(180,4,6,0);
@@ -270,7 +274,7 @@ public class WorldRenderer {
 		darkenedScreen = new Texture(Gdx.files.internal("darkenedScreen.png"));		
 		
 		
-		CSX = new Texture(Gdx.files.internal("fwe.png"));
+		CSX = new Texture(Gdx.files.internal("fwe2.png"));
 		//timerGameIcons = new Texture("timergameicons2.png");
 		//timerGameIcons.
 		
@@ -512,6 +516,9 @@ public class WorldRenderer {
 		TRp2waterTransform = new TextureRegion[3];
 		TRp2earthTransform = new TextureRegion[3];
 		
+		TRp1Hearts = new TextureRegion[2];
+		TRp2Hearts = new TextureRegion[2];
+		
 		//////////////////////////////////////////////////////////////////////////assigning sprites to their animations
 		//in sequence of the sprite sheet
 
@@ -636,35 +643,45 @@ public class WorldRenderer {
 			TRp1earthTransform[i-87] = allSlimeSprites[i];
 		}
 		
+		TRp1Hearts[0] = allSlimeSprites[26];
+		TRp1Hearts[1] = allSlimeSprites[47];
+		
+		TRp2Hearts[0] = allSlimeSprites[74];
+		TRp2Hearts[1] = allSlimeSprites[83];
+		
+		
+		
+		
+		
 		/////////////////////////////////////////////////////P2 Fire
-		p2fireNormal = new Animation(0.6f, TRp2fireNormal);
+		p2fireNormal = new Animation(0.5f, TRp2fireNormal);
 		p2fireAttack = new Animation(0.2f, TRp2fireAttack);
 		p2fireHit = new Animation(0.2f, TRp2fireHit);
 		
 		//////////////////////////////////////////////////////P1 Fire
-		p1fireNormal = new Animation(0.6f, TRp1fireNormal);
-		p1fireAttack = new Animation(1f, TRp1fireAttack);
-		p1fireHit = new Animation(0.6f, TRp1fireHit);
+		p1fireNormal = new Animation(0.5f, TRp1fireNormal);
+		p1fireAttack = new Animation(0.2f, TRp1fireAttack);
+		p1fireHit = new Animation(0.5f, TRp1fireHit);
 		
 		/////////////////////////////////////////////////////////P2 Water
-		p2waterNormal = new Animation(0.6f, TRp2waterNormal);
-		p2waterAttack = new Animation(0.6f, TRp2waterAttack);
-		p2waterHit = new Animation(0.6f, TRp2waterHit);
+		p2waterNormal = new Animation(0.5f, TRp2waterNormal);
+		p2waterAttack = new Animation(0.2f, TRp2waterAttack);
+		p2waterHit = new Animation(0.5f, TRp2waterHit);
 		
 		////////////////////////////////////////////////////////P1Water
-		p1waterNormal = new Animation(0.6f, TRp1waterNormal);
-		p1waterAttack = new Animation(1f, TRp1waterAttack);
-		p1waterHit = new Animation(0.6f, TRp1waterHit);
+		p1waterNormal = new Animation(0.5f, TRp1waterNormal);
+		p1waterAttack = new Animation(0.2f, TRp1waterAttack);
+		p1waterHit = new Animation(0.5f, TRp1waterHit);
 		
 		////////////////////////////////////////////////////////P2 Earth
-		p2earthNormal = new Animation(0.6f, TRp2earthNormal);
+		p2earthNormal = new Animation(0.5f, TRp2earthNormal);
 		p2earthAttack = new Animation(0.6f, TRp2earthAttack);
-		p2earthHit = new Animation(0.6f, TRp2earthHit);
+		p2earthHit = new Animation(0.5f, TRp2earthHit);
 		
 		//////////////////////////////////////////////////////////P1Earth
-		p1earthNormal = new Animation(0.6f, TRp1earthNormal);
+		p1earthNormal = new Animation(0.5f, TRp1earthNormal);
 		p1earthAttack = new Animation(1f, TRp1earthAttack);
-		p1earthHit = new Animation(0.6f, TRp1earthHit);
+		p1earthHit = new Animation(0.5f, TRp1earthHit);
 		
 		p1earthLeaves = new Animation(0.6f, TRp1earthLeaves);
 		p2earthLeaves = new Animation(0.6f, TRp2earthLeaves);	
@@ -684,6 +701,11 @@ public class WorldRenderer {
 
 		p1earthTransform = new Animation(0.6f, TRp1earthTransform);
 		p2earthTransform = new Animation(0.6f, TRp2earthTransform);
+		
+		////////////////////////////////////////////////////////////////HEART
+		
+		p1Hearts = new Animation(0.2f, TRp1Hearts);
+		p2Hearts = new Animation(0.2f, TRp2Hearts);
 	
 		
 		p1NeutralNormal.setPlayMode(Animation.LOOP_PINGPONG);
@@ -884,7 +906,7 @@ public class WorldRenderer {
 			}
 			
 			
-			//placement of the lil icon for available action for enemy (P2)  //try to get the selecter effect a little more horizontally centered on the smaller icons
+			//placement of the lil icon for available action for enemy (P2) 
 			if (playerHandler.p2TimeHandler.getTimePassedPercent() > 0 && playerHandler.p2TimeHandler.getTimePassedPercent() < (100/7) ){			
 			}
 			else if (playerHandler.p2TimeHandler.getTimePassedPercent() >= 100/7 && playerHandler.p2TimeHandler.getTimePassedPercent() < (100/7)*2){
@@ -909,7 +931,7 @@ public class WorldRenderer {
 			else{			
 			}
 			
-			//placement of the lil icon for available action for player (P1)  //try to get the selecter effect a little more horizontally centered on the smaller icons
+			//placement of the lil icon for available action for player (P1)  
 			if (playerHandler.p1TimeHandler.getTimePassedPercent() > 0 && playerHandler.p1TimeHandler.getTimePassedPercent() < 100/7){
 				
 			}
@@ -1024,8 +1046,6 @@ public class WorldRenderer {
 			batch.end();
 			
 			
-	
-			
 			
 			batch2.begin();
 			
@@ -1060,6 +1080,10 @@ public class WorldRenderer {
 			}
 			*/
 			
+			
+			//COME BACK TO THIS
+			/*
+			 * 
 			
 			//code for displaying the attack effectiveness icons
 			
@@ -1129,17 +1153,7 @@ public class WorldRenderer {
 							case 2: k = 4;
 								break;
 						}					
-						/*
-						if (i == 0){
-							k = -2;						
-						}					
-						if (i == 1){
-							k = 1;
-						}					
-						if (i == 2){
-							k = 4;
-						}			
-						*/					
+				
 						l = j + k;					
 						batch2.draw(p2EffectIcons[j],  (l + 1) * w/6 + w/16, h - w * 9/32, w/16, w/16);					
 					}
@@ -1192,6 +1206,11 @@ public class WorldRenderer {
 			}
 			//end of attack effectiveness icons
 			
+			*/
+			batch2.end();
+			
+			
+			batch2.begin();
 			
 			
 			//player character placement on screen
@@ -1306,7 +1325,7 @@ public class WorldRenderer {
 			
 					if (playerHandler.player1.getElementStatus() == "red"){
 						if (playerHandler.player1.getStatus() == "attacking"){
-							if (p1y < h * 6/16){
+							if (p1y < h * 7/16){
 								batch2.draw(p1fireAttack.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, p1y, w/8, w/8);
 								p1y += p1AttackMS;
 							}
@@ -1318,7 +1337,7 @@ public class WorldRenderer {
 					}
 					else if (playerHandler.player1.getElementStatus() == "blue"){
 						if (playerHandler.player1.getStatus() == "attacking"){
-							if (p1y < h *6/16){
+							if (p1y < h * 7/16){
 							batch2.draw(p1waterAttack.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, p1y, w/8, w/8);
 							p1y += p1AttackMS;
 							}
@@ -1330,9 +1349,15 @@ public class WorldRenderer {
 					}
 					else if (playerHandler.player1.getElementStatus() == "green"){
 						if (playerHandler.player1.getStatus() == "attacking"){
-							if(p1y < h * 6/16){
-							batch2.draw(p1earthAttack.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, p1y, w/8, w/8);
-							batch2.draw(p1earthLeaves.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, p1y + w/8, w/8, w/8);							
+							batch2.draw(p1earthAttack.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, h * 5/16, w/8, w/8);
+							if(p1y < h * 7/16 ){
+							
+							batch2.draw(p1earthLeaves.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, p1y + w/8, w/8, w/8);
+							p1y += p1AttackMS;
+							}
+							else{
+								playerHandler.player1.setStatus("normal");
+								resetP1y();
 							}
 
 							
@@ -1350,7 +1375,7 @@ public class WorldRenderer {
 				
 					if (playerHandler.player2.getElementStatus() == "red"){
 						if (playerHandler.player2.getStatus() == "attacking"){
-							if (p2y > h* 9/16){
+							if (p2y > h* 1/2){
 							batch2.draw(p2fireAttack.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, p2y, w/8, w/8);  //h * 5/8 is normal  h * 9/16 is p2 attack height
 							p2y -= p2AttackMS;}
 							else{						
@@ -1362,7 +1387,7 @@ public class WorldRenderer {
 					}
 					else if (playerHandler.player2.getElementStatus() == "blue"){
 						if (playerHandler.player2.getStatus() == "attacking"){
-							if (p2y > h * 9/16){
+							if (p2y > h * 1/2){
 							batch2.draw(p2waterAttack.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, p2y, w/8, w/8);
 							p2y -= p2AttackMS;}
 							else{						
@@ -1374,16 +1399,20 @@ public class WorldRenderer {
 					}
 					else if (playerHandler.player2.getElementStatus() == "green"){
 						if (playerHandler.player2.getStatus() == "attacking"){
-							batch2.draw(p2earthAttack.getKeyFrame(3), w/2 - w/16, p2y, w/8, w/8);
-							batch2.draw(p2earthLeaves.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, p2y - w/8, w/8, w/8);
-							//playerHandler.player2.setStatus("normal");
-						}
-						
-						if (p2AnimeClock.getTimePassed() > 1){
-							playerHandler.player2.setStatus("normal");
-						}
-						
+							batch2.draw(p2earthAttack.getKeyFrame(3), w/2 - w/16, h * 5/8, w/8, w/8);
+							if (p2y > h* 1/2){
+								batch2.draw(p2earthLeaves.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, p2y - w/8, w/8, w/8);
+								p2y -= p2AttackMS;
+							}
+								//playerHandler.player2.setStatus("normal");
+							else{
+								playerHandler.player2.setStatus("normal");
+								resetP2y();
+							}
+						}						
+
 					}
+						
 				} //end of timer constraints
 				else{
 					p2AnimeClock.setFrozenMomentInTime();
@@ -1588,18 +1617,26 @@ public class WorldRenderer {
 			
 			
 			////////////////////////////////////////////////////////////healing
-			
-			if (p1AnimeClock.getTimePassed() < 3){
-				if (playerHandler.player1.getStatus() == "healed"){
+			if (playerHandler.player1.getStatus() == "healed"){
+				if (p1AnimeClock.getTimePassed() < 2){
+					batch2.draw(p1Hearts.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, h * 5/16, w/8, w/8);
+				}
+				if (p1AnimeClock.getTimePassed() < 3){
+					
 					batch2.draw(p1NeutralNormal.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, h * 6/16, w/8, w/8);
+	
 				}
 			}
 			else{
 				p1AnimeClock.setFrozenMomentInTime();
 			}
 			
-			if (p2AnimeClock.getTimePassed() < 3){
-				if (playerHandler.player2.getStatus() == "healed"){
+			if (playerHandler.player2.getStatus() == "healed"){
+				if (p2AnimeClock.getTimePassed() < 2){
+					batch2.draw(p2Hearts.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, h * 10/16, w/8, w/8);
+				}
+				if (p2AnimeClock.getTimePassed() < 3){
+					
 					batch2.draw(p2NeutralNormal.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, h * 9/16, w/8, w/8);
 				}
 			}

@@ -89,11 +89,11 @@ public class Foe extends Player{
 				setAttackChoice("taunt");
 			}
 		
-			else if (getAttackOption() > 33 && getAttackOption() <= 66){
+			else if (getAttackOption() > 33 && getAttackOption() <= 38){
 				setAttackChoice("miss");
 				}
 				
-			else if (getAttackOption() > 66 && getAttackOption() <= 99){
+			else if (getAttackOption() > 38 && getAttackOption() <= 99){
 				setAttackChoice("hit");
 			}
 		}
@@ -103,11 +103,11 @@ public class Foe extends Player{
 				setAttackChoice("taunt");
 			}
 		
-			else if (getAttackOption() > 15 && getAttackOption() <= 30){
+			else if (getAttackOption() > 15 && getAttackOption() <= 20){
 				setAttackChoice("miss");
 				}
 				
-			else if (getAttackOption() > 30 && getAttackOption() <= 99){
+			else if (getAttackOption() > 20 && getAttackOption() <= 99){
 				setAttackChoice("hit");
 			}
 		}

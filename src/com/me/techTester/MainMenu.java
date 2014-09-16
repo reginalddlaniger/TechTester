@@ -57,12 +57,14 @@ public class MainMenu implements Screen{
 		bgColor.setColor(89,89,89,255);
 		bgColor.rect(0, 0, w, h);
 		bgColor.end();
+		
+		batch.end();
 
 		
 		stage.draw();		//needs to have buttons amd their pack information
 
 		
-		batch.end();
+		
 		
 	}
 

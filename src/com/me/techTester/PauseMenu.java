@@ -89,10 +89,23 @@ public class PauseMenu implements Screen {
 		quitBS.up = skin.getDrawable("buttonQuitUp");
 		quitBS.down = skin.getDrawable("buttonQuitDown");
 		
+		playButton.setSize(w/8,w/8);
+		playButton.setPosition(w/2 - w/16, h/2 - w/16);
+		
+		quitButton.setSize(w/8, w/8);
+		quitButton.setPosition(w/2 - w/16, h/4 - w/16);
+		
+		restartButton.setSize(w/8,  w/8);
+		restartButton.setPosition(w/2 - w/16, h * 3/4 - w/16);
+		
+		pauseButton.setSize(w/8, w/8);
+		pauseButton.setPosition(w - w/7, h/2 - w/16);
+		/*
 		if (getPauseScreenStatus() == false){
 		stage.setViewport(w/8, w/8, false, w - w/8, h/2 - w/16, w/8, w/8);
 		//(stageWidth, stageHeight, keepAspectRatio, viewportX, viewportY, viewportWidth, viewportHeight)
 		}
+		*/
 		
 
 		

@@ -28,9 +28,9 @@ public class MainMenu implements Screen{
 	
 	SpriteBatch batch;
 	
-	Game game;
+	TechTester game;
 	
-	public MainMenu(Game game){
+	public MainMenu(TechTester game){
 		this.game = game;
 	}
 	
@@ -44,8 +44,7 @@ public class MainMenu implements Screen{
 		batch.begin();
 		
 
-		batch.end();
-		
+		batch.end();		
 
 		
 		stage.act();
@@ -131,7 +130,7 @@ public class MainMenu implements Screen{
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
 				System.out.println("p1 choice clicked");
-				game.setScreen(new OnePlayerPlayScreen(game));
+				game.setScreen(ScreenHandler.onePlayerPlayScreen);
 				return true;
 			}
 		});
@@ -140,7 +139,7 @@ public class MainMenu implements Screen{
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
 				System.out.println("p2 choice clicked");
-				game.setScreen(new TwoPlayerPlayScreen(game));
+				game.setScreen(ScreenHandler.twoPlayerPlayScreen);
 				return true;
 			}
 		});

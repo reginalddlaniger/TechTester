@@ -22,14 +22,17 @@ import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.math.Vector2;
 
 public class TechTester extends Game {	
-	
-	Game game;
+	 
+	//Game game;
+	ScreenHandler screenHandler;
 
 	
 	@Override
-	public void create() {	
-		game = this;
-		setScreen(new MainMenu(game));		
+	public void create() {
+		
+		//game = this;
+		screenHandler = new ScreenHandler(this);
+		setScreen(ScreenHandler.mainMenu);		
 		
 	}
 

@@ -10,11 +10,12 @@ public class OnePlayerPlayScreen implements Screen{
 	
 
 	
-	WorldInput wInput; //THIS  SHOULD BE GONE WHEN I BRING BACK THE OTHER VERSION.
+	WorldInput wInput; //THIS  SHOULD BE GONE WHEN I BRING BACK THE OTHER VERSION.//but now i don't know why
 	WorldRenderer wRenderer;
 	TimeHandler mainGameTimeHandler; 	
 	PlayerHandler playerHandler;
-	
+	PauseMenu pauseMenu;
+	TechTester game;
 	
 	static float h, w;	
 	int stopper1, stopper2; //these should act like counters, a touch on the screen will cause them to go up by one. when they go up to one, they will cut off further activity.  they will then be reset to 0 on release
@@ -22,10 +23,10 @@ public class OnePlayerPlayScreen implements Screen{
 	boolean showPauseScreen, showEndScreen;
 	float choice;
 
-	String gameStatus;  //gameStatus = paused, over, playing, resuming
+	static public String gameStatus;  //gameStatus = paused, over, playing, resuming
 	
-	public OnePlayerPlayScreen(Game game){
-		
+	public OnePlayerPlayScreen(TechTester game){
+		this.game = game;  
 	}
 
 	@Override
@@ -38,14 +39,19 @@ public class OnePlayerPlayScreen implements Screen{
 		
 
 		
-			if (Gdx.input.isKeyPressed(Keys.J)){
-				setGameStatus("paused");
-			}		
+		if (Gdx.input.isKeyPressed(Keys.J)){
+			setGameStatus("paused");
+		}		
+	
+	
+		if (Gdx.input.isKeyPressed(Keys.K)){
+			setGameStatus("playing");
+		}		
 		
-		
-			if (Gdx.input.isKeyPressed(Keys.K)){
-				setGameStatus("playing");
-			}		
+		if (getGameStatus() == "paused"){
+			game.setScreen(ScreenHandler.pauseMenu);
+			//ScreenHandler.pauseMenu.render(delta);
+		}
 			
 		
 		if (getGameStatus() == "playing"){
@@ -144,7 +150,7 @@ public class OnePlayerPlayScreen implements Screen{
 		
 		stateTime = 0;
 		
-		
+		pauseMenu = new PauseMenu();
 		
 		mainGameTimeHandler = new TimeHandler(stateTime);
 		mainGameTimeHandler.setTimerDuration(99);
@@ -166,7 +172,7 @@ public class OnePlayerPlayScreen implements Screen{
 		
 		//setScreen(new MainMenu(game));
 		
-	}
+	}// end of show/create method
 
 	@Override
 	public void hide() {
@@ -193,11 +199,11 @@ public class OnePlayerPlayScreen implements Screen{
 	}
 	
 
-	void setGameStatus(String givenGameStatus){
+	static public void setGameStatus(String givenGameStatus){
 		gameStatus = givenGameStatus;
 	}
 	
-	String getGameStatus(){
+	static public String getGameStatus(){
 		return gameStatus;
 	}
 

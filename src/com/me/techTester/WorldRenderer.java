@@ -8,12 +8,16 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 
 public class WorldRenderer {
@@ -37,7 +41,7 @@ public class WorldRenderer {
 	Texture background;
 	TextureRegion[] p1Background, p2Background;
 	float p1FrameStart, p1AnimeFrameTime;
-	float p1x, p1y, p2x, p2y;
+	float p1x, p1y, p2x, p2y;  //player 1 x and y coordinates, player 2 x and y coordinates
 	float p1AttackMS, p2AttackMS, p1DamagedMS, p2DamagedMS;  //attack movement speed and damaged movement speeds
 	
 	Texture darkenedScreen;
@@ -50,9 +54,9 @@ public class WorldRenderer {
 	Texture playbackTextures;
 	TextureRegion[] playBackButtons;
 	TextureRegion pauseButton;
-	Texture playButton;
-	Texture restartButton;
-	Texture blankButton;
+	//Texture playButton;
+	//Texture restartButton;
+	//Texture blankButton;
 	
 	Texture fullSlimeSpriteSheet;
 	TextureRegion[] allSlimeSprites;
@@ -159,7 +163,7 @@ public class WorldRenderer {
 	Color red;
 	static Texture timerGameIcons;
 	TextureRegion[] rpsIcons;
-	Texture CSX;
+	Texture CSX;  //Circle Square X
 	Texture damageWords;
 	TextureRegion[] p1DmgWords;
 	TextureRegion[] p2DmgWords;
@@ -188,6 +192,7 @@ public class WorldRenderer {
 	LabelStyle MGTStyle;  //Main Game Timer Style
 	BitmapFont font;
 	Stage timerStage;
+	
 	
 
 	
@@ -771,6 +776,8 @@ public class WorldRenderer {
 		
 
 		//animeClock = new Clocker();
+		
+
 	}
 	
 	void update(String gameState, PlayerHandler playerHandler, float stateTime, WorldInput inputs, TimeHandler mainGameTimeHandler){
@@ -806,18 +813,7 @@ public class WorldRenderer {
 				p2AnimeClock.resetTimer();
 			}
 			
-			//TRYING TO IMPLEMENT A PAUSE MENU
-			if (inputs.pause.isPressed()){
-				setPauseStatus(true);
-			}
-			
-			if (getPauseStatus() == true){
-				inputs.p1Button.setPosition(w, 0);
-				inputs.p2Button.setPosition(w,h/2);				
-			}
-			
-			
-	
+
 	
 			
 			/*
@@ -1798,9 +1794,10 @@ public class WorldRenderer {
 	
 				
 				pauseBatch.end();
-			//}
-			
+			//}			
 		//}//end of if (gameState == "playing"
+				
+		
 		
 
 	}
@@ -1829,18 +1826,7 @@ public class WorldRenderer {
 		
 	}
 	*/
-	
-	void p2Taunt(){
-		
-	}
-	
-	void setPauseStatus(boolean trueOrFalse){
-		pauseStatus = trueOrFalse;
-	}
-	
-	boolean getPauseStatus(){
-		return pauseStatus;
-	}
+
 	
 	void resetP1y(){
 		p1y = h * 5/16;
@@ -1858,6 +1844,8 @@ public class WorldRenderer {
 		//return
 	}
 	*/
+	
+
 
 
 }

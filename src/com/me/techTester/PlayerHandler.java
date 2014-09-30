@@ -45,8 +45,8 @@ public class PlayerHandler {
 		p2TimeHandler = new TimeHandler(stateTime);  //player 2 and foe will both use a handful of p2 variables
 		p1TimeHandler.setName("p1Clock");
 		p2TimeHandler.setName("p2Clock");
-		p1TimeHandler.setTimerDuration(5);
-		p2TimeHandler.setTimerDuration(5);
+		p1TimeHandler.setTimerDuration(8);
+		p2TimeHandler.setTimerDuration(8);
 		player1.setLifeStatus("alive");
 		player2.setLifeStatus("alive");
 		
@@ -186,7 +186,7 @@ public class PlayerHandler {
 						foe.update();
 					}
 					if (foe.getAttackChoice() == "miss"){//code to help skip the action content
-						if (p2TimeHandler.getTimePassedPercent() < 99.5f){
+						if (p2TimeHandler.getTimePassedPercent() < 99f){
 							foe.update();
 						}
 						

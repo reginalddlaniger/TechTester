@@ -19,7 +19,7 @@ public class TwoPlayerPlayScreen implements Screen{
 	public static float stateTime;	
 	boolean showPauseScreen, showEndScreen;
 
-	String gameStatus;  //gameStatus = paused, over, playing, resuming
+	static String gameStatus;  //gameStatus = paused, over, playing, resuming
 	
 	public TwoPlayerPlayScreen(Game game){
 		
@@ -84,8 +84,9 @@ public class TwoPlayerPlayScreen implements Screen{
 		//stateTime += Gdx.graphics.getDeltaTime();	
 
 		
-		wInput.update(getGameStatus());
+		
 		wRenderer.update(getGameStatus(), playerHandler, stateTime, wInput, mainGameTimeHandler);
+		wInput.update(getGameStatus());
 		playerHandler.update(getGameStatus(), stateTime, wInput);
 		
 		
@@ -203,11 +204,11 @@ public class TwoPlayerPlayScreen implements Screen{
 	}
 	
 
-	void setGameStatus(String givenGameStatus){
+	static void setGameStatus(String givenGameStatus){
 		gameStatus = givenGameStatus;
 	}
 	
-	String getGameStatus(){
+	static String getGameStatus(){
 		return gameStatus;
 	}
 

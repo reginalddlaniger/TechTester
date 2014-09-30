@@ -162,6 +162,12 @@ public class Foe extends Player{
 		
 		if (attackChoice == "miss"){
 			//attackChoice = "wait";
+			System.out.println(" __      __    __   ______   ______ ");
+			System.out.println("|  \\  //  |  |  | | _____| | _____|");
+			System.out.println("|   \\//   |  |  | | |____  | |____ ");
+			System.out.println("|          |  |  | |_____ | |_____ |");
+			System.out.println("|  |\\//|  |  |  | _____| | _____| |");
+			System.out.println("|__|    |__|  |__| |______| |______|");
 			setAttackReady(false);
 			setTimeToAttack(false);
 		}

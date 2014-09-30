@@ -47,11 +47,12 @@ public class OnePlayerPlayScreen implements Screen{
 		if (Gdx.input.isKeyPressed(Keys.K)){
 			setGameStatus("playing");
 		}		
-		
+		/*
 		if (getGameStatus() == "paused"){
 			game.setScreen(ScreenHandler.pauseMenu);
 			//ScreenHandler.pauseMenu.render(delta);
 		}
+		*/
 			
 		
 		if (getGameStatus() == "playing"){
@@ -85,8 +86,9 @@ public class OnePlayerPlayScreen implements Screen{
 		//stateTime += Gdx.graphics.getDeltaTime();	
 
 		
-		wInput.update(getGameStatus());
+		
 		wRenderer.update(getGameStatus(), playerHandler, stateTime, wInput, mainGameTimeHandler);
+		wInput.update(getGameStatus());
 		playerHandler.update(getGameStatus(), stateTime, wInput);
 		
 		
@@ -150,7 +152,7 @@ public class OnePlayerPlayScreen implements Screen{
 		
 		stateTime = 0;
 		
-		pauseMenu = new PauseMenu();
+		//pauseMenu = new PauseMenu();
 		
 		mainGameTimeHandler = new TimeHandler(stateTime);
 		mainGameTimeHandler.setTimerDuration(99);

@@ -16,6 +16,8 @@ public class OnePlayerPlayScreen implements Screen{
 	PlayerHandler playerHandler;
 	PauseMenu pauseMenu;
 	TechTester game;
+	String gameMode; //onePlayer or twoPlayer
+	boolean singlePlayerStatus;
 	
 	static float h, w;	
 	int stopper1, stopper2; //these should act like counters, a touch on the screen will cause them to go up by one. when they go up to one, they will cut off further activity.  they will then be reset to 0 on release
@@ -88,7 +90,7 @@ public class OnePlayerPlayScreen implements Screen{
 		
 		
 		wRenderer.update(getGameStatus(), playerHandler, stateTime, wInput, mainGameTimeHandler);
-		wInput.update(getGameStatus());
+		wInput.update(getGameStatus(), gameMode);
 		playerHandler.update(getGameStatus(), stateTime, wInput);
 		
 		
@@ -152,6 +154,8 @@ public class OnePlayerPlayScreen implements Screen{
 		
 		stateTime = 0;
 		
+		singlePlayerStatus = true;  //for use with world input
+		
 		//pauseMenu = new PauseMenu();
 		
 		mainGameTimeHandler = new TimeHandler(stateTime);
@@ -162,14 +166,14 @@ public class OnePlayerPlayScreen implements Screen{
 		showPauseScreen = false;
 		showEndScreen = false;
 		
-		
+		gameMode = "onePlayer";
 		//clock.setPlayerInput(Gdx.input.isButtonPressed(Buttons.LEFT));	
 		
 		
-		wInput = new WorldInput();
+		wInput = new WorldInput(game);
 		wRenderer = new WorldRenderer(mainGameTimeHandler);
-		playerHandler = new PlayerHandler(stateTime, "onePlayer");
-		playerHandler.setGameMode("onePlayer");
+		playerHandler = new PlayerHandler(stateTime, gameMode);
+		playerHandler.setGameMode(gameMode);
 		setGameStatus("playing");
 		
 		//setScreen(new MainMenu(game));

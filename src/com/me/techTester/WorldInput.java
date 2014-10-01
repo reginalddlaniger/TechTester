@@ -2,6 +2,7 @@ package com.me.techTester;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -21,6 +22,7 @@ public class WorldInput {
 	Button p1Button, p2Button, pause;
 	ButtonStyle p1BS, p2BS;
 	float h, w;
+	TechTester game;
 	//Stage playerInputArea, pauseMenu;
 	//ButtonStyle pauseBS;
 	
@@ -43,13 +45,16 @@ public class WorldInput {
 	
 
 	
-	public WorldInput(){
+	public WorldInput(TechTester game){ 
+		//imported [techtester game]to enable screen switching
+
 		h = Gdx.graphics.getHeight();
 		w = Gdx.graphics.getWidth();
 		
 		clickPos = new Vector2();
 
-		
+		this.game = game;
+		 
 		//playerInputArea = new Stage(w, h, true);
 		//playerInputArea.
 		
@@ -163,7 +168,7 @@ public class WorldInput {
 		
 	}
 	
-	void update(String gameState){
+	void update(String gameState, String gameMode){
 		
 		//playerInputArea.draw();
 		//playerInputArea.act();		
@@ -198,6 +203,9 @@ public class WorldInput {
 			playButton.setPosition(buttonX, h/2 - w/16);
 			quitButton.setPosition(buttonX, h/4 - w/16);
 			restartButton.setPosition(buttonX, h * 3/4 - w/16);
+			
+			p1Button.setPosition(w, 0);
+			p2Button.setPosition(w,h/2);
 		}
 		
 		/*
@@ -222,6 +230,11 @@ public class WorldInput {
 				quitButton.setPosition(buttonX, h/4 - w/16);
 				restartButton.setPosition(buttonX, h * 3/4 - w/16);
 			}
+			else {
+				p1Button.setPosition(0, 0);
+				p2Button.setPosition(0, h/2);
+			}
+
 			//game.setScreen(ScreenHandler.onePlayerPlayScreen);
 			//OnePlayerPlayScreen.setGameStatus("playing");
 		}
@@ -235,16 +248,55 @@ public class WorldInput {
 			
 		}
 		
-		if (OnePlayerPlayScreen.getGameStatus() == "paused"){
-			p1Button.setPosition(w, 0);
-			p2Button.setPosition(w,h/2);				
-		}
-		if (TwoPlayerPlayScreen.getGameStatus() == "paused"){
-			p1Button.setPosition(w, 0);
-			p2Button.setPosition(w,h/2);				
-		}
+
 		
 		//end of pause menu
+		
+		
+		if (gameMode == "onePlayer"){
+			
+			if (restartButton.isPressed()){
+				
+				playButton.setPosition(buttonX, h/2 - w/16);
+				quitButton.setPosition(buttonX, h/4 - w/16);
+				restartButton.setPosition(buttonX, h * 3/4 - w/16);
+				
+				OnePlayerPlayScreen.setGameStatus("playing");
+				TwoPlayerPlayScreen.setGameStatus("playing");
+				setPauseScreenStatus(false);
+				
+				game.setScreen(ScreenHandler.onePlayerPlayScreen);
+			}
+		}
+		else if (gameMode == "twoPlayer"){
+			if (restartButton.isPressed()){
+				
+				playButton.setPosition(buttonX, h/2 - w/16);
+				quitButton.setPosition(buttonX, h/4 - w/16);
+				restartButton.setPosition(buttonX, h * 3/4 - w/16);
+				
+				OnePlayerPlayScreen.setGameStatus("playing");
+				TwoPlayerPlayScreen.setGameStatus("playing");
+				setPauseScreenStatus(false);
+				
+				game.setScreen(ScreenHandler.twoPlayerPlayScreen);
+			}
+		}
+		
+		
+		if (quitButton.isPressed()){
+			
+			playButton.setPosition(buttonX, h/2 - w/16);
+			quitButton.setPosition(buttonX, h/4 - w/16);
+			restartButton.setPosition(buttonX, h * 3/4 - w/16);
+			
+			OnePlayerPlayScreen.setGameStatus("playing");
+			TwoPlayerPlayScreen.setGameStatus("playing");
+			setPauseScreenStatus(false);
+			
+			game.setScreen(ScreenHandler.mainMenu);
+		}
+
 		
 
 		

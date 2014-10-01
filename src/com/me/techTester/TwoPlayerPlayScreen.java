@@ -12,6 +12,9 @@ public class TwoPlayerPlayScreen implements Screen{
 	WorldRenderer wRenderer;
 	TimeHandler mainGameTimeHandler; 	
 	PlayerHandler playerHandler;
+	boolean singlePlayerStatus;
+	TechTester game;
+	String gameMode; //onePlayer or twoPlayer
 	
 	
 	static float h, w;	
@@ -21,8 +24,8 @@ public class TwoPlayerPlayScreen implements Screen{
 
 	static String gameStatus;  //gameStatus = paused, over, playing, resuming
 	
-	public TwoPlayerPlayScreen(Game game){
-		
+	public TwoPlayerPlayScreen(TechTester game){
+	this.game = game;
 	}
 
 	@Override
@@ -86,7 +89,7 @@ public class TwoPlayerPlayScreen implements Screen{
 		
 		
 		wRenderer.update(getGameStatus(), playerHandler, stateTime, wInput, mainGameTimeHandler);
-		wInput.update(getGameStatus());
+		wInput.update(getGameStatus(), gameMode);
 		playerHandler.update(getGameStatus(), stateTime, wInput);
 		
 		
@@ -157,6 +160,10 @@ public class TwoPlayerPlayScreen implements Screen{
 		
 		stateTime = 0;
 		
+		
+		gameMode = "twoPlayer";
+		singlePlayerStatus = false; //for use with world input
+		
 		mainGameTimeHandler = new TimeHandler(stateTime);
 		mainGameTimeHandler.setTimerDuration(99);
 		mainGameTimeHandler.setName("Game Clock");
@@ -169,10 +176,10 @@ public class TwoPlayerPlayScreen implements Screen{
 		//clock.setPlayerInput(Gdx.input.isButtonPressed(Buttons.LEFT));	
 		
 		
-		wInput = new WorldInput();
+		wInput = new WorldInput(game);
 		wRenderer = new WorldRenderer(mainGameTimeHandler);
-		playerHandler = new PlayerHandler(stateTime, "twoPlayer");
-		playerHandler.setGameMode("twoPlayer");
+		playerHandler = new PlayerHandler(stateTime, gameMode);
+		playerHandler.setGameMode(gameMode);
 		setGameStatus("playing");
 		
 		//setScreen(new MainMenu(game));

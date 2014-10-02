@@ -38,31 +38,34 @@ public class MainMenu implements Screen{
 	@Override
 	public void render(float delta) { //is the render - constantly updated content
 		
-		Gdx.gl.glClearColor(1, 1, 1, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		//Gdx.gl.glClearColor(1, 1, 1, 1);
+		//Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
-		batch.begin();
+		//batch.begin();
 		
 
-		batch.end();		
+		//batch.end();		
 
 		
 		stage.act();
 		
 		
-		batch.begin();
+		//batch.begin();
+		
+
+		
+		//batch.end();
 		
 		bgColor.begin(ShapeType.Filled);		
 		bgColor.setColor(89,89,89,255);
 		bgColor.rect(0, 0, w, h);
 		bgColor.end();
 		
-		batch.end();
 
 		
 		stage.draw();		//needs to have buttons amd their pack information
 
-		
+
 		
 		
 	}
@@ -77,6 +80,7 @@ public class MainMenu implements Screen{
 	public void show() {  //like the create method
 		
 		bgColor = new ShapeRenderer();
+
 		
 		
 		stage = new Stage(w,h, true);

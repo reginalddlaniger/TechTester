@@ -74,7 +74,19 @@ public class PlayerHandler {
 			foe.setLifeStatus("dead");
 		}
 		
-		if (player1.getLifeStatus() == "dead" && player2.getLifeStatus() == "dead"){
+		if (player1.getHP() > player2.getHP()){
+			player1.setVictoryStatus("winner");
+			player2.setVictoryStatus("loser");
+		}
+		else if (player2.getHP() > player1.getHP()){
+			player1.setVictoryStatus("loser");
+			player2.setVictoryStatus("winner");
+		}
+		else if (player1.getHP() == player2.getHP()){
+			player1.setVictoryStatus("draw");
+			player2.setVictoryStatus("draw");
+		}		
+		else if (player1.getLifeStatus() == "dead" && player2.getLifeStatus() == "dead"){
 			player1.setVictoryStatus("draw");
 			player2.setVictoryStatus("draw");
 		}

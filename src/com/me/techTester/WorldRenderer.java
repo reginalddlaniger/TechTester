@@ -1655,12 +1655,14 @@ public class WorldRenderer {
 			
 			
 			//PAUSE BUTTON PLACEMENT
+			/*
 			pauseBatch.begin();		
 			pauseBatch.draw(pauseButton, w - w/8, h/2 - w/16, w/8, w/8);
 			if (gameState == "paused"){
 				pauseBatch.draw(darkenedScreen, 0, 0, w, h);
 			}
 			pauseBatch.end();
+			*/
 			
 			
 	
@@ -1770,23 +1772,25 @@ public class WorldRenderer {
 				
 				//pauseBatch.draw(allSlimes.getKeyFrame(mainGameTimeHandler.getTimePassed()), w/2, h/2, w/4, w/4);
 				
+				if (gameState == "over"){
 				
-					if (playerHandler.player1.getHP() <= 0 && playerHandler.player2.getHP() <= 0){
+					if (playerHandler.player1.getVictoryStatus() == "draw"){
 						pauseBatch.draw(darkenedScreen, 0, 0, w, h);
-						pauseBatch.draw(TRWinner[0], w/2 - w * 3/8, (h * 1/2) - (w * 1/4),  w*3/4, w * 1/2);
-						pauseBatch.draw(TRWinner[1], w/2  - ( w * 3/4), (h * 1/2) - (w * 1/4),  w*3/4, w * 1/2);
+						pauseBatch.draw(TRWinner[0], w/2 - (w * 3/8), (h * 1/4) - (w * 1/4),  w*3/4, w * 1/2);
+						pauseBatch.draw(TRWinner[1], w/2  - ( w * 3/8), (h * 3/4) - (w * 1/4),  w*3/4, w * 1/2);
 					}
-					else if (playerHandler.player1.getHP() <= 0){
+					else if (playerHandler.player2.getVictoryStatus() == "winner"){
 						pauseBatch.draw(darkenedScreen, 0, 0, w, h);
 						pauseBatch.draw(TRWinner[1], w/2  - (w * 3/8), (h * 1/2) - (w * 1/4),  w*3/4, w * 1/2);
 						//pauseBatch.draw(darkenedScreen);
 						//winner is flipped for the top player
 						
 					}
-					else if (playerHandler.player2.getHP() <= 0){
+					else if (playerHandler.player1.getVictoryStatus() == "winner"){
 						pauseBatch.draw(darkenedScreen, 0, 0, w, h);
 						pauseBatch.draw(TRWinner[0], w/2 - w * 3/8, (h * 1/2) - (w * 1/4),  w*3/4, w * 1/2);
 					}
+				}
 					
 					
 					

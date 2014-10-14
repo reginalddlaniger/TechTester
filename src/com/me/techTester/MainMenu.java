@@ -3,6 +3,7 @@ package com.me.techTester;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -38,35 +39,24 @@ public class MainMenu implements Screen{
 	@Override
 	public void render(float delta) { //is the render - constantly updated content
 		
-		//Gdx.gl.glClearColor(1, 1, 1, 1);
-		//Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 		//batch.begin();
-		
-
-		//batch.end();		
-
-		
-		stage.act();
-		
-		
-		//batch.begin();
-		
-
 		
 		//batch.end();
 		
-		bgColor.begin(ShapeType.Filled);		
-		bgColor.setColor(89,89,89,255);
+		bgColor.begin(ShapeType.Filled);
+		bgColor.setColor(Color.DARK_GRAY);
 		bgColor.rect(0, 0, w, h);
 		bgColor.end();
 		
-
+		stage.act();		
 		
-		stage.draw();		//needs to have buttons amd their pack information
-
-
+		//batch.begin();		
+		//batch.end();	
 		
+		stage.draw();		//needs to have buttons and their pack information	
 		
 	}
 

@@ -1017,12 +1017,12 @@ public class WorldRenderer {
 			//p1 HP border and meter
 			
 			player1HPBar.begin(ShapeType.Filled);
-			player1HPBar.rect(0, h * 3/16, (w  * playerHandler.player1.getHPPercent() * 0.01f) , h/32 ); // move Y to H * 3/16 // old height: h/2 - h/16 //old starting point: (w -w/4) * (playerHandler.player1.getHPPercent() * 0.01f)
+			player1HPBar.rect(0, h * 5/32, (w  * playerHandler.player1.getHPPercent() * 0.01f) , h/32 ); // move Y to H * 3/16 // old height: h/2 - h/16 //old starting point: (w -w/4) * (playerHandler.player1.getHPPercent() * 0.01f)
 			player1HPBar.setColor(Color.valueOf("33CC00"));
 			player1HPBar.end();
 			
 			p1HPBorder.begin(ShapeType.Line);
-			p1HPBorder.rect(0, h * 3/16, w, h/32 );  
+			p1HPBorder.rect(0, h * 5/32, w, h/32 );  //original height h * 3/16
 			p1HPBorder.setColor(Color.BLACK);//(Color.valueOf("33CC33"));
 			p1HPBorder.end();
 			
@@ -1030,12 +1030,12 @@ public class WorldRenderer {
 			//p2 HP border and meter		
 			
 			player2HP.begin(ShapeType.Filled);
-			player2HP.rect(w, h * 25/32, (w  * -playerHandler.player2.getHPPercent() * 0.01f), h/32 ); // move to h * 25/32 // old height h/2 // old starting point: ((w - w/4) * -playerHandler.player2.getHPPercent() * 0.01f)
+			player2HP.rect(w, h * 26/32, (w  * -playerHandler.player2.getHPPercent() * 0.01f), h/32 ); // move to h * 25/32 // old height h/2 // old starting point: ((w - w/4) * -playerHandler.player2.getHPPercent() * 0.01f)
 			player2HP.setColor(Color.valueOf("CC0033"));
 			player2HP.end();	
 			
 			p2HPBorder.begin(ShapeType.Line);
-			p2HPBorder.rect(0, h * 25/32, w, h/32);
+			p2HPBorder.rect(0, h * 26/32, w, h/32);// original height h * 25/32
 			p2HPBorder.setColor(Color.BLACK);//(Color.RED);
 			p2HPBorder.end();
 			
@@ -1051,7 +1051,7 @@ public class WorldRenderer {
 				batch2.draw(p1DmgWords[i], (w/6 * i  ) + w/16, 0,w/16, w/16);
 			}
 			for (int i = 0; i < 6; i++){
-				batch2.draw(p2DmgWords[i], (w/6 * i  ) + w/16, h - w/16,w/16, w/16);
+				batch2.draw(p2DmgWords[i], (w/6 * i  ) + w/16, h - w/16, w/16, w/16);
 			}
 	
 			
@@ -1618,8 +1618,17 @@ public class WorldRenderer {
 					batch2.draw(p1Hearts.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, h * 5/16, w/8, w/8);
 				}
 				if (p1AnimeClock.getTimePassed() < 3){
+					if (playerHandler.player1.getElementStatus() == "red"){
+						batch2.draw(p1fireNormal.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, h * 6/16, w/8, w/8);
+					}
+					else if(playerHandler.player1.getElementStatus() == "green"){
+						batch2.draw(p1earthNormal.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, h * 6/16, w/8, w/8);
+					}
+					else if (playerHandler.player1.getElementStatus() == "blue"){
+						batch2.draw(p1waterNormal.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, h * 6/16, w/8, w/8);
+					}
 					
-					batch2.draw(p1NeutralNormal.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, h * 6/16, w/8, w/8);
+					//batch2.draw(p1NeutralNormal.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, h * 6/16, w/8, w/8);
 	
 				}
 			}
@@ -1632,8 +1641,17 @@ public class WorldRenderer {
 					batch2.draw(p2Hearts.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, h * 10/16, w/8, w/8);
 				}
 				if (p2AnimeClock.getTimePassed() < 3){
+					if (playerHandler.player2.getElementStatus() == "red"){
+						batch2.draw(p2fireNormal.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, h * 9/16, w/8, w/8);
+					}
+					else if (playerHandler.player2.getElementStatus() == "blue"){
+						batch2.draw(p2waterNormal.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, h * 9/16, w/8, w/8);
+					}
+					else if (playerHandler.player2.getElementStatus() == "green"){
+						batch2.draw(p2earthNormal.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, h * 9/16, w/8, w/8);
+					}
 					
-					batch2.draw(p2NeutralNormal.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, h * 9/16, w/8, w/8);
+					//batch2.draw(p2NeutralNormal.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, h * 9/16, w/8, w/8);
 				}
 			}
 			else{
@@ -1655,14 +1673,14 @@ public class WorldRenderer {
 			
 			
 			//PAUSE BUTTON PLACEMENT
-			/*
+			
 			pauseBatch.begin();		
-			pauseBatch.draw(pauseButton, w - w/8, h/2 - w/16, w/8, w/8);
+			//pauseBatch.draw(pauseButton, w - w/8, h/2 - w/16, w/8, w/8);
 			if (gameState == "paused"){
 				pauseBatch.draw(darkenedScreen, 0, 0, w, h);
 			}
 			pauseBatch.end();
-			*/
+			
 			
 			
 	
@@ -1791,13 +1809,10 @@ public class WorldRenderer {
 						pauseBatch.draw(TRWinner[0], w/2 - w * 3/8, (h * 1/2) - (w * 1/4),  w*3/4, w * 1/2);
 					}
 				}
-					
-					
-					
-				
-	
 				
 				pauseBatch.end();
+				
+				
 			//}			
 		//}//end of if (gameState == "playing"
 				

@@ -659,47 +659,48 @@ public class WorldRenderer {
 		
 		
 		/////////////////////////////////////////////////////P2 Fire
-		p2fireNormal = new Animation(0.5f, TRp2fireNormal);
+		p2fireNormal = new Animation(0.4f, TRp2fireNormal);
 		p2fireAttack = new Animation(0.2f, TRp2fireAttack);
 		p2fireHit = new Animation(0.2f, TRp2fireHit);
 		
 		//////////////////////////////////////////////////////P1 Fire
-		p1fireNormal = new Animation(0.5f, TRp1fireNormal);
+		p1fireNormal = new Animation(0.4f, TRp1fireNormal);
 		p1fireAttack = new Animation(0.2f, TRp1fireAttack);
 		p1fireHit = new Animation(0.5f, TRp1fireHit);
 		
 		/////////////////////////////////////////////////////////P2 Water
-		p2waterNormal = new Animation(0.5f, TRp2waterNormal);
+		p2waterNormal = new Animation(0.4f, TRp2waterNormal);
 		p2waterAttack = new Animation(0.2f, TRp2waterAttack);
 		p2waterHit = new Animation(0.5f, TRp2waterHit);
 		
 		////////////////////////////////////////////////////////P1Water
-		p1waterNormal = new Animation(0.5f, TRp1waterNormal);
+		p1waterNormal = new Animation(0.4f, TRp1waterNormal);
 		p1waterAttack = new Animation(0.2f, TRp1waterAttack);
 		p1waterHit = new Animation(0.5f, TRp1waterHit);
 		
 		////////////////////////////////////////////////////////P2 Earth
-		p2earthNormal = new Animation(0.5f, TRp2earthNormal);
-		p2earthAttack = new Animation(0.6f, TRp2earthAttack);
+		p2earthNormal = new Animation(0.4f, TRp2earthNormal);
+		p2earthAttack = new Animation(0.2f, TRp2earthAttack);
 		p2earthHit = new Animation(0.5f, TRp2earthHit);
 		
 		//////////////////////////////////////////////////////////P1Earth
-		p1earthNormal = new Animation(0.5f, TRp1earthNormal);
-		p1earthAttack = new Animation(1f, TRp1earthAttack);
+		p1earthNormal = new Animation(0.4f, TRp1earthNormal);
+		p1earthAttack = new Animation(0.2f, TRp1earthAttack);
 		p1earthHit = new Animation(0.5f, TRp1earthHit);
 		
 		p1earthLeaves = new Animation(0.6f, TRp1earthLeaves);
 		p2earthLeaves = new Animation(0.6f, TRp2earthLeaves);	
 		///////////////////////////////////////////////////////////////Neutral
-		p1NeutralNormal = new Animation(0.6f, TRp1NeutralNormal);
+		p1NeutralNormal = new Animation(0.4f, TRp1NeutralNormal);
 		p1NeutralHit = new Animation(0.6f, TRp1NeutralHit);
 		
-		p2NeutralNormal = new Animation(0.6f, TRp2NeutralNormal);
+		p2NeutralNormal = new Animation(0.4f, TRp2NeutralNormal);
 		p2NeutralHit = new Animation( 0.6f, TRp2NeutralHit);	
 		
 
 		///////////////////////////////////////////////////////////////HENSHIN
 		p1fireTransform = new Animation(0.6f, TRp1fireTransform);
+		p2fireTransform = new Animation(0.6f, TRp2fireTransform);
 		
 		p2waterTransform = new Animation(0.6f, TRp2waterTransform);
 		p1waterTransform = new Animation(0.6f, TRp1waterTransform);
@@ -716,6 +717,15 @@ public class WorldRenderer {
 		p1NeutralNormal.setPlayMode(Animation.LOOP_PINGPONG);
 		p2NeutralNormal.setPlayMode(Animation.LOOP_PINGPONG);
 		p2fireNormal.setPlayMode(Animation.LOOP_PINGPONG);
+		p1fireNormal.setPlayMode(Animation.LOOP_PINGPONG);
+		p1waterNormal.setPlayMode(Animation.LOOP_PINGPONG);
+		p2waterNormal.setPlayMode(Animation.LOOP_PINGPONG);
+		p1earthNormal.setPlayMode(Animation.LOOP_PINGPONG);
+		p2earthNormal.setPlayMode(Animation.LOOP_PINGPONG);
+		p1fireTransform.setPlayMode(Animation.LOOP_PINGPONG);
+		
+		
+		
 		
 		
 		/*
@@ -1218,6 +1228,9 @@ public class WorldRenderer {
 		//p1AnimeClock.debug();  //for pause testing
 		
 		if (playerHandler.player1.getStatus() == "normal" && playerHandler.player1.getElementStatus() == "red"){
+			
+			batch2.draw(p1fireNormal.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, h * 5/16, w/8, w/8);
+			/*
 			if (p1AnimeClock.getTimePassed() < 3){
 				batch2.draw(p1fireNormal.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, h * 5/16, w/8, w/8);
 			}
@@ -1225,6 +1238,7 @@ public class WorldRenderer {
 				p1AnimeClock.setFrozenMomentInTime();	
 				//p1AnimeClock.setTimePassed(p1AnimeClock.momentInTime);
 			}
+			*/
 		}
 		else if (playerHandler.player1.getStatus() == "normal" && playerHandler.player1.getElementStatus() == "blue"){
 			if (p1AnimeClock.getTimePassed() < 3){
@@ -1264,13 +1278,16 @@ public class WorldRenderer {
 		
 		//p2AnimeClock.debug();  //for pause testing
 		if (playerHandler.player2.getStatus() == "normal" && playerHandler.player2.getElementStatus() == "red"){
+			
+			batch2.draw(p2fireNormal.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, h * 5/8, w/8, w/8);
+			/*
 			if (p2AnimeClock.getTimePassed() < 3){
 				batch2.draw(p2fireNormal.getKeyFrame(p2AnimeClock.getTimePassed()), w/2 - w/16, h * 5/8, w/8, w/8);
 			}
 			else {
 				p2AnimeClock.setFrozenMomentInTime();	//if the clock goes past 3 in the above if statement, make the current time the new starting point ( I think)
 				//p1AnimeClock.setTimePassed(p1AnimeClock.momentInTime);
-			}
+			}*/
 		}
 		
 		//p2AnimeClock.debug();  //for pause testing
@@ -1321,6 +1338,7 @@ public class WorldRenderer {
 			
 					if (playerHandler.player1.getElementStatus() == "red"){
 						if (playerHandler.player1.getStatus() == "attacking"){
+							
 							if (p1y < h * 7/16){
 								batch2.draw(p1fireAttack.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, p1y, w/8, w/8);
 								p1y += p1AttackMS;
@@ -1455,7 +1473,7 @@ public class WorldRenderer {
 			
 			if (playerHandler.player1.getStatus() == "damaged" && playerHandler.player1.getElementStatus() == "red"){
 				//batch2.draw(p1Boxer.getKeyFrame(5), w/2 - w/16, h * 1/4, w/8, w/8);
-				if ( p1y > h * 1/4){
+				if ( p1y > h * 6/32){
 					p1y -= p1DamagedMS;
 					if (p1AnimeClock.getTimePassed() < 3){						
 						batch2.draw(p1fireHit.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, p1y, w/8, w/8);  //p1 pushed back limit should be h * 4/16?
@@ -1474,7 +1492,7 @@ public class WorldRenderer {
 			
 			else if (playerHandler.player1.getStatus() == "damaged" && playerHandler.player1.getElementStatus() == "blue"){
 				//batch2.draw(p1Boxer.getKeyFrame(5), w/2 - w/16, h * 1/4, w/8, w/8);
-				if ( p1y > h * 1/4){
+				if ( p1y > h * 6/32){
 					p1y -= p1DamagedMS;
 					if (p1AnimeClock.getTimePassed() < 3){						
 						batch2.draw(p1waterHit.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, p1y, w/8, w/8);  //p1 pushed back limit should be h * 4/16?
@@ -1493,7 +1511,7 @@ public class WorldRenderer {
 			
 			else if (playerHandler.player1.getStatus() == "damaged" && playerHandler.player1.getElementStatus() == "green"){
 				//batch2.draw(p1Boxer.getKeyFrame(5), w/2 - w/16, h * 1/4, w/8, w/8);
-				if ( p1y > h * 1/4){
+				if ( p1y > h * 6/32){
 					p1y -= p1DamagedMS;
 					if (p1AnimeClock.getTimePassed() < 3){						
 						batch2.draw(p1earthHit.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, p1y, w/8, w/8);  //p1 pushed back limit should be h * 4/16?
@@ -1513,7 +1531,7 @@ public class WorldRenderer {
 			else if (playerHandler.player1.getStatus() == "damaged"){
 				//batch2.draw(p1Boxer.getKeyFrame(5), w/2 - w/16, h * 1/4, w/8, w/8);
 				
-				if (p1y > h * 4/16){
+				if (p1y > h * 6/32){
 					if (p1AnimeClock.getTimePassed() < 3){					
 						batch2.draw(p1NeutralHit.getKeyFrame(p1AnimeClock.getTimePassed()), w/2 - w/16, p1y, w/8, w/8);  //p1 pushed back limit should be h * 5/16?
 						p1y -= p1DamagedMS;
@@ -1845,6 +1863,8 @@ public class WorldRenderer {
 		
 	}
 	*/
+	
+
 
 	
 	void resetP1y(){
@@ -1861,6 +1881,12 @@ public class WorldRenderer {
 		yPosition -=4;
 		yPosition += 2;
 		//return
+	}
+	
+	*/
+	/*
+	if(whatever state == "transforming"){
+		batch2.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation);
 	}
 	*/
 	

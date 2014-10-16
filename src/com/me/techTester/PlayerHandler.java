@@ -45,8 +45,8 @@ public class PlayerHandler {
 		p2TimeHandler = new TimeHandler(stateTime);  //player 2 and foe will both use a handful of p2 variables
 		p1TimeHandler.setName("p1Clock");
 		p2TimeHandler.setName("p2Clock");
-		p1TimeHandler.setTimerDuration(8);
-		p2TimeHandler.setTimerDuration(8);
+		p1TimeHandler.setTimerDuration(10.5f);
+		p2TimeHandler.setTimerDuration(10.5f);
 		player1.setLifeStatus("alive");
 		player2.setLifeStatus("alive");
 		
